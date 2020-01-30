@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * CameraFollower.cs
+    * Assignment #2
+    * Controls the camera so it follows the player
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

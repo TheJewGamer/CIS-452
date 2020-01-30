@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * gameOverMenuController.cs
+    * Assignment #2
+    * Controls the menu that appears when the game is over
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.UI;

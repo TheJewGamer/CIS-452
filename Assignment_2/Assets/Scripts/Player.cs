@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * Player.cs
+    * Assignment #2
+    * Controls the player
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,27 +18,27 @@ public class Player : MonoBehaviour
     private int health = 3;
     private Vector2 movement;
 
-    //weapon
-    public Transform barrel;
-    public GameObject reloadingText;
-    private int reloadTimeTatical = 1;
-    private int reloadTimeEmpty = 2;
-    private int magSize = 16;
-    private float fireRate = .01f;
-    private int currentAmmo;
-    private bool reloading = false;
-    private float attackWait;
-
-    Vector2 direction;
-
     //hud
-    public Text currentText;
     public Text scoreText;
     public GameObject gameOverMenu;
     public GameObject heart1;
     public GameObject heart2;
     public GameObject heart3;
-    
+    public GameObject hitEffect;
+    public static Vector2 direction;
+
+    //weapons
+    public GameObject pistolScript;
+    public GameObject machineGunScript;
+
+    //stuff
+    public ChangeWeaponBehavior ChangeWeaponBehavior{get; set;}
+
+    public virtual void DoChangeWeapon() 
+    {
+        //change sprite
+        ChangeWeaponBehavior.ChangeWeapon();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -39,15 +46,11 @@ public class Player : MonoBehaviour
         //get rigibody
         rb2d = GetComponent<Rigidbody2D>();
 
-        //assign ammo
-        currentAmmo = magSize;
-
-        //hud update
-        currentText.text = currentAmmo.ToString();
-        reloadingText.SetActive(false);
+        //hud
         heart1.SetActive(true);
         heart2.SetActive(true);
         heart3.SetActive(true);
+        hitEffect.SetActive(false);
     }
 
     // Update is called once per frame
@@ -65,20 +68,31 @@ public class Player : MonoBehaviour
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
             transform.right = direction * -1;
-        }
-        
-        //reload
-        if(Input.GetButton("Reload") == true)
-        {
-            //call
-            Reload();
-        }
 
-        //shoot
-        if(Input.GetMouseButtonDown(0) == true)
-        {
-            //call
-            Attack();
+            //switch weapons
+            if(Input.GetKeyDown(KeyCode.Alpha1) == true)
+            {
+                //script changes
+                pistolScript.SetActive(true);
+                machineGunScript.SetActive(false);
+
+                Destroy(GetComponent<ChangeWeaponBehavior>());
+                ChangeWeaponBehavior = gameObject.AddComponent<ChangeWeaponPistol>();
+                //call
+                DoChangeWeapon();
+            }
+
+            if(Input.GetKeyDown(KeyCode.Alpha2) == true)
+            {
+                //script changes
+                pistolScript.SetActive(false);
+                machineGunScript.SetActive(true);
+
+                Destroy(GetComponent<ChangeWeaponBehavior>());
+                ChangeWeaponBehavior = gameObject.AddComponent<ChangeWeaponMachineGun>();
+                //call
+                DoChangeWeapon();
+            }
         }
     }
 
@@ -88,103 +102,14 @@ public class Player : MonoBehaviour
         rb2d.MovePosition(rb2d.position + movement * speed * Time.fixedDeltaTime);
     }
 
-    //shoot weapon
-    public void Attack()
-    {
-        //check for ammo, fireRate, and reloading
-        if(!reloading && currentAmmo > 0 && Time.time > attackWait)
-        {
-            //fireRate
-            attackWait = Time.time + fireRate;
-
-            //ammo
-            currentAmmo--;
-
-            //hud update
-            currentText.text = currentAmmo.ToString();
-
-            //raycast
-            RaycastHit2D hit = Physics2D.Raycast(barrel.transform.position, direction);
-
-            //check to see what was hit
-            if(hit.collider !=null)
-            {
-                //enemy hit
-                if(hit.collider.CompareTag("enemy"))
-                {
-                    //testing
-                    Debug.Log("hit");
-
-                    //notify
-                    hit.transform.SendMessageUpwards("Shot");
-                }
-            }
-
-            Debug.Log("miss");
-        }
-        //out of ammo
-        else
-        {
-            //do nothing for now
-        }
-
-    }
-
-    private IEnumerator Reloading()
-    {
-        //variable
-        int waitTime;
-
-        //prevent shooting/ double reload
-        reloading = true;
-
-        //hud update
-        reloadingText.SetActive(true);
-
-        //tactical reload
-        if(currentAmmo > 0)
-        {
-            //set wait time
-            waitTime = reloadTimeTatical;
-        }
-        //empty reload
-        else
-        {
-            //set wait time
-            waitTime = reloadTimeEmpty;
-        }
-
-        //wait
-        yield return new WaitForSeconds(waitTime);
-
-        //give ammo
-        currentAmmo = magSize;
-
-        //update hud
-        currentText.text = currentAmmo.ToString();
-
-        //done reloading
-        reloading = false;
-
-        //hud update
-        reloadingText.SetActive(false);
-    }
-
-    //reload
-    private void Reload()
-    {
-        //check to make sure you can
-        if(currentAmmo < magSize && !reloading)
-        {
-            StartCoroutine(Reloading());
-        }
-    }
-
     //zombie overlapped player
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "enemy")
         {
+            //feedback
+            StartCoroutine(hitFlash());
+
             //destory enemy that hit player
             Destroy(other.gameObject);
 
@@ -227,5 +152,15 @@ public class Player : MonoBehaviour
 
         //display menu
         gameOverMenu.SetActive(true);
+    }
+
+    private IEnumerator hitFlash()
+    {
+        //enable
+        hitEffect.SetActive(true);
+
+        yield return new WaitForSeconds(.05f);
+
+        hitEffect.SetActive(false);
     }
 }

@@ -1,12 +1,18 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * SpawnController.cs
+    * Assignment #2
+    * Controls the spawning of the enemy blobs
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerController : MonoBehaviour
 {
     //variables
-    int enemiesPerSpawn = 10;
-    float spawnDelay = 1f;
+    float spawnDelay = .5f;
     private List<Transform> spawners = new List<Transform>();
     public GameObject walker; 
 
