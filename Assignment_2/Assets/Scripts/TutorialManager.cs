@@ -77,6 +77,7 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
+        //setup
         prompt1.SetActive(true);
         prompt2.SetActive(false);
         prompt3.SetActive(false);
@@ -93,6 +94,7 @@ public class TutorialManager : MonoBehaviour
         enemy.SetActive(false);
     }
 
+    //check for which prompt player is on
     void Update()
     {
         if(!prompt1Completed)
@@ -157,11 +159,11 @@ public class TutorialManager : MonoBehaviour
         //moved left
         if(Input.GetKeyDown(KeyCode.A) == true)
         {
-            movedRight = true;
+            movedLeft = true;
         }
 
         //done
-        if(movedUp && movedDown && movedRight && movedRight)
+        if(movedUp && movedDown && movedLeft && movedRight)
         {
             prompt1Completed = true;
 
@@ -231,6 +233,7 @@ public class TutorialManager : MonoBehaviour
 
             prompt5.SetActive(false);
 
+            //next
             Prompt6();
         }
     }
@@ -246,6 +249,7 @@ public class TutorialManager : MonoBehaviour
 
             prompt6.SetActive(false);
 
+            //next
             Prompt7();
         }
     }
@@ -261,6 +265,7 @@ public class TutorialManager : MonoBehaviour
 
             prompt7.SetActive(false);
 
+            //next
             Prompt8();
         }
     }
@@ -276,6 +281,7 @@ public class TutorialManager : MonoBehaviour
 
             prompt8.SetActive(false);
 
+            //next
             Prompt9();
         }
     }
@@ -285,13 +291,14 @@ public class TutorialManager : MonoBehaviour
         prompt9.SetActive(true);
         enemy.SetActive(true);
 
-        if(enemy.GetComponent<Enemy>().health < 100)
+        if(enemy.GetComponent<TutorialEnemy>().health == 2)
         {
             prompt9Completed = true;
             prompt10Called = true;
 
             prompt9.SetActive(false);
 
+            //next
             Prompt10();
         }
     }
@@ -300,14 +307,14 @@ public class TutorialManager : MonoBehaviour
     {
         prompt10.SetActive(true);
 
-        if(enemy.GetComponent<Enemy>().health == 97)
+        if(enemy == null)
         {
             prompt10Completed = true;
             prompt11Called = true;
 
             prompt10.SetActive(false);
-            enemy.SetActive(false);
 
+            //next
             Prompt11();
         }
     }
@@ -323,7 +330,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator wait()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
 
         //enable
         prompt11.SetActive(false);
@@ -335,7 +342,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator wait2()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
 
         //enable
         prompt12.SetActive(false);

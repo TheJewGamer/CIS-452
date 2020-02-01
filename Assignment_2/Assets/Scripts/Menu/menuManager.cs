@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class menuManager : MonoBehaviour
 {
     //variables
@@ -20,6 +19,7 @@ public class menuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //set menus up
         mainMenu.SetActive(true);
         tutorialMenu.SetActive(false);
     }
@@ -34,6 +34,8 @@ public class menuManager : MonoBehaviour
    //quit button is pushed
    public void QuitPressed()
    {
+       Debug.Log("Quit only works on a build");
+
        Application.Quit();
    }
 

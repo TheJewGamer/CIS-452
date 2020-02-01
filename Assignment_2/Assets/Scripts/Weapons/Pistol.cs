@@ -1,24 +1,25 @@
 ﻿/*
     * Jacob Cohen
-    * MachineGun.cs
+    * Pistol.cs
     * Assignment #2
-    * Controls the machinegun weapon
+    * Controls the pistol weapon
 */
+
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MachineGun : MonoBehaviour, IRangedWeapon
+public class Pistol : MonoBehaviour, IRangedWeapon
 {
     //weapon
     public Transform barrel;
-    private int reloadTimeTatical = 3;
-    private int reloadTimeEmpty = 2;
-    private int magSize = 31;
-    private float fireRate = .1f;
-    private int currentAmmo = 31;
+    private float reloadTimeTatical = .5f;
+    private float reloadTimeEmpty = 1;
+    private int magSize = 16;
+    private float fireRate = .01f;
+    private int currentAmmo = 16;
     private bool reloading = false;
     private float attackWait;
     public GameObject muzzelFlash;
@@ -33,14 +34,22 @@ public class MachineGun : MonoBehaviour, IRangedWeapon
 
     void OnEnable()
     {
-        //update hud
+        //show pistol hud
         HudUpdate();
+
+        //prevent errors
+        emptyText.SetActive(false);
 
         //resume reloading if needed
         if(reloading)
         {
             StartCoroutine(Reloading());
         }
+    }
+
+    void OnDisable()
+    {
+        muzzelFlash.SetActive(false);
     }
 
     // Update is called once per frame
@@ -54,15 +63,10 @@ public class MachineGun : MonoBehaviour, IRangedWeapon
         }
 
         //shoot
-        if(Input.GetMouseButton(0) == true)
+        if(Input.GetMouseButtonDown(0) == true)
         {
             //call
             Shoot();
-        }
-        else
-        {
-            //feedback
-            muzzelFlash.SetActive(false);
         }
     }
 
@@ -84,8 +88,8 @@ public class MachineGun : MonoBehaviour, IRangedWeapon
         if(!reloading && currentAmmo > 0 && Time.time > attackWait)
         {
             //feedback
-            muzzelFlash.SetActive(true);
-            
+            StartCoroutine(Flash());
+
             //fireRate
             attackWait = Time.time + fireRate;
 
@@ -104,6 +108,7 @@ public class MachineGun : MonoBehaviour, IRangedWeapon
                 //enemy hit
                 if(hit.collider.CompareTag("enemy"))
                 {
+
                     //notify
                     hit.transform.SendMessageUpwards("Shot");
                 }
@@ -113,17 +118,16 @@ public class MachineGun : MonoBehaviour, IRangedWeapon
         else if(currentAmmo <= 0 && !reloading)
         {
             //feedback
-            muzzelFlash.SetActive(false);
-
             StartCoroutine(Empty());
         }
 
     }
 
+    //actual reloading done here
     private IEnumerator Reloading()
     {
         //variable
-        int waitTime;
+        float waitTime;
 
         //prevent shooting/ double reload
         reloading = true;
@@ -160,6 +164,7 @@ public class MachineGun : MonoBehaviour, IRangedWeapon
         reloadingText.SetActive(false);
     }
 
+    //flash empty text
     private IEnumerator Empty()
     {
         //enable
@@ -170,6 +175,19 @@ public class MachineGun : MonoBehaviour, IRangedWeapon
 
         //turn off
         emptyText.SetActive(false);
+    }
+
+    //muzzle flash
+    private IEnumerator Flash()
+    {
+        //enable
+        muzzelFlash.SetActive(true);
+
+        //wait
+        yield return new WaitForSeconds(.05f);
+
+        //turn off
+        muzzelFlash.SetActive(false);
     }
 
     //reload

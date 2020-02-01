@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2579278244697906479}
   - component: {fileID: 2579278244697906472}
-  - component: {fileID: 2579278244697906473}
   - component: {fileID: 2579278244697906478}
   - component: {fileID: 2579278244697906477}
+  - component: {fileID: 639194112746783536}
   m_Layer: 0
-  m_Name: walker
+  m_Name: enemy
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,20 +83,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2579278244697906473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2579278244697906474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61c5c456d478c1a40b6275e3f86f9565, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.2
-  health: 3
 --- !u!50 &2579278244697906478
 Rigidbody2D:
   serializedVersion: 4
@@ -144,3 +130,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16041602, y: 0.13753918}
   m_EdgeRadius: 0
+--- !u!114 &639194112746783536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2579278244697906474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2cf3c360fa80a249b9648cd9ca24575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.01
+  health: 3

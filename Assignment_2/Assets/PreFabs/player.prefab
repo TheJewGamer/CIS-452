@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4188033765766918317}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 8.91161}
   m_Children:
   - {fileID: 3016798702021653028}
   - {fileID: 3158253613223324867}
@@ -106,8 +106,9 @@ MonoBehaviour:
   heart1: {fileID: 0}
   heart2: {fileID: 0}
   heart3: {fileID: 0}
-  pistolScript: {fileID: 0}
-  machineGunScript: {fileID: 0}
+  hitEffect: {fileID: 0}
+  pistolScript: {fileID: 5211410346179714386}
+  machineGunScript: {fileID: 7080289574668370938}
 --- !u!50 &4188033765766918318
 Rigidbody2D:
   serializedVersion: 4
@@ -190,7 +191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3158253613223324867}
-  - component: {fileID: 3428424250543014773}
+  - component: {fileID: 1679606686}
   m_Layer: 0
   m_Name: pistolScript
   m_TagString: Untagged
@@ -212,7 +213,7 @@ Transform:
   m_Father: {fileID: 4188033765766918305}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3428424250543014773
+--- !u!114 &1679606686
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,15 +222,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5211410346179714386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ef5508b0b0c1eb40b5491a1dabfd6b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 7411706de8f2aea4bbefb345acb963dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barrel: {fileID: 0}
+  barrel: {fileID: 3016798702021653028}
+  muzzelFlash: {fileID: 8163379935847488490}
   currentText: {fileID: 0}
   emptyText: {fileID: 0}
   reloadingText: {fileID: 0}
   magSizeText: {fileID: 0}
   weaponImage: {fileID: 0}
+  weaponSprite: {fileID: 21300000, guid: ec5a1f5a07c3d044fa0807078216e2f5, type: 3}
 --- !u!1 &6798179711999988914
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +257,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6798179711999988914}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0733, y: 0.0151, z: 0}
+  m_LocalPosition: {x: -0.0754, y: 0.0144, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4188033765766918305}
@@ -269,14 +272,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4705804274791596273}
-  - component: {fileID: 8847182994914800622}
+  - component: {fileID: 457132493}
   m_Layer: 0
   m_Name: machineGunScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4705804274791596273
 Transform:
   m_ObjectHideFlags: 0
@@ -291,7 +294,7 @@ Transform:
   m_Father: {fileID: 4188033765766918305}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8847182994914800622
+--- !u!114 &457132493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -300,15 +303,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7080289574668370938}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c15cc6150604e9499dc12732a58d21a, type: 3}
+  m_Script: {fileID: 11500000, guid: 44ab4d48a588ab54e80333005e171957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barrel: {fileID: 0}
+  barrel: {fileID: 3016798702021653028}
+  muzzelFlash: {fileID: 7553391989718708938}
   currentText: {fileID: 0}
   emptyText: {fileID: 0}
   reloadingText: {fileID: 0}
   magSizeText: {fileID: 0}
   weaponImage: {fileID: 0}
+  weaponSprite: {fileID: 21300000, guid: fb1fb7b36ff7d474aa9d49a4e2abf1e5, type: 3}
 --- !u!1 &7553391989718708938
 GameObject:
   m_ObjectHideFlags: 0

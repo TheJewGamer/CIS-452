@@ -31,15 +31,6 @@ public class Player : MonoBehaviour
     public GameObject pistolScript;
     public GameObject machineGunScript;
 
-    //stuff
-    public ChangeWeaponBehavior ChangeWeaponBehavior{get; set;}
-
-    public virtual void DoChangeWeapon() 
-    {
-        //change sprite
-        ChangeWeaponBehavior.ChangeWeapon();
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -76,10 +67,9 @@ public class Player : MonoBehaviour
                 pistolScript.SetActive(true);
                 machineGunScript.SetActive(false);
 
-                Destroy(GetComponent<ChangeWeaponBehavior>());
-                ChangeWeaponBehavior = gameObject.AddComponent<ChangeWeaponPistol>();
-                //call
-                DoChangeWeapon();
+                //change sprite
+                GetComponent<SpriteRenderer>().sprite = GameObject.Find("pistolSprite").GetComponent<SpriteRenderer>().sprite;
+
             }
 
             if(Input.GetKeyDown(KeyCode.Alpha2) == true)
@@ -88,10 +78,8 @@ public class Player : MonoBehaviour
                 pistolScript.SetActive(false);
                 machineGunScript.SetActive(true);
 
-                Destroy(GetComponent<ChangeWeaponBehavior>());
-                ChangeWeaponBehavior = gameObject.AddComponent<ChangeWeaponMachineGun>();
-                //call
-                DoChangeWeapon();
+                //change sprite
+                GetComponent<SpriteRenderer>().sprite = GameObject.Find("machineGunSprite").GetComponent<SpriteRenderer>().sprite;
             }
         }
     }
@@ -102,7 +90,7 @@ public class Player : MonoBehaviour
         rb2d.MovePosition(rb2d.position + movement * speed * Time.fixedDeltaTime);
     }
 
-    //zombie overlapped player
+    //enemy overlapped player
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "enemy")
@@ -139,12 +127,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    //called when enemy dies
     public void Score(int points)
     {
         //update score hud
         scoreText.text = (int.Parse(scoreText.text.ToString()) + points).ToString(); 
     }
 
+    //player is dead
     private void GameOver()
     {
         //pause game
@@ -152,8 +142,12 @@ public class Player : MonoBehaviour
 
         //display menu
         gameOverMenu.SetActive(true);
+        
+        //remove player
+        this.gameObject.SetActive(false);
     }
 
+    //red flash effect
     private IEnumerator hitFlash()
     {
         //enable

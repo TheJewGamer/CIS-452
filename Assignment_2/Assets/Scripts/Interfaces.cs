@@ -18,9 +18,7 @@ public interface IRangedWeapon
     void HudUpdate();
 }
 
-public abstract class ChangeWeaponBehavior : MonoBehaviour
+public abstract class MovementBehavior : MonoBehaviour
 {
-    IRangedWeapon rangedWeaponBehavior;
-
-    public abstract void ChangeWeapon();
+    public abstract void Move(GameObject player);
 }

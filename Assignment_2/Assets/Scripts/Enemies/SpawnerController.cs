@@ -12,9 +12,9 @@ using UnityEngine;
 public class SpawnerController : MonoBehaviour
 {
     //variables
-    float spawnDelay = .5f;
+    float spawnDelay = .8f;
     private List<Transform> spawners = new List<Transform>();
-    public GameObject walker; 
+    public GameObject enemy; 
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +35,6 @@ public class SpawnerController : MonoBehaviour
         int spawnIndex = Random.Range(0, spawners.Count);
 
         //spawn
-        Instantiate(walker, spawners[spawnIndex].position, spawners[spawnIndex].rotation);
+        Instantiate(enemy, spawners[spawnIndex].position, spawners[spawnIndex].rotation);
     }
 }
