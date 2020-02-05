@@ -434,6 +434,7 @@ GameObject:
   - component: {fileID: 296025141}
   - component: {fileID: 296025142}
   - component: {fileID: 296025143}
+  - component: {fileID: 296025144}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -551,6 +552,22 @@ CircleCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.014521062, y: -0.02420187}
+  serializedVersion: 2
+  m_Radius: 0.76090676
+--- !u!58 &296025144
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296025138}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.014521062, y: -0.02420187}
@@ -710,6 +727,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 304890539}
   m_CullTransparentMesh: 0
+--- !u!1 &411277452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 411277453}
+  m_Layer: 0
+  m_Name: PlayerLastKnowLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &411277453
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411277452}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.4130716, y: 4.98, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &421449639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,7 +1788,7 @@ GameObject:
   - component: {fileID: 1386264160}
   m_Layer: 0
   m_Name: watcher
-  m_TagString: Captain
+  m_TagString: Watcher
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2070,7 +2117,6 @@ GameObject:
   - component: {fileID: 1867078694}
   - component: {fileID: 1867078696}
   - component: {fileID: 1867078692}
-  - component: {fileID: 1867078693}
   m_Layer: 0
   m_Name: Grunt
   m_TagString: Grunt
@@ -2094,27 +2140,6 @@ CircleCollider2D:
   m_Offset: {x: 0.014521062, y: -0.02420187}
   serializedVersion: 2
   m_Radius: 0.76090676
---- !u!50 &1867078693
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1867078691}
-  m_BodyType: 0
-  m_Simulated: 0
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!212 &1867078694
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2192,7 +2217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c6433b30d11964dbfcefe30f809bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  siteAlert: 1
+  siteAlert: 0
+  lastKnownPlayerLocation: {fileID: 2046776360}
   speed: 5
   redColor:
     serializedVersion: 2
@@ -2254,6 +2280,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   distance: 5
   waitToSpawn: 3
+  waitToTurn: 5
   watcher: {fileID: 1386264160}
 --- !u!1 &1915845553
 GameObject:
@@ -2365,7 +2392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2046776359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.23, y: 3.33, z: -17.283203}
+  m_LocalPosition: {x: 10.42, y: 2.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

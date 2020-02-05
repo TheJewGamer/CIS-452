@@ -11,8 +11,7 @@ public class Watcher : MonoBehaviour, ISubject
     public float rotaionSpeed;
     public Gradient redColor;
     public Gradient greenColor;
-    private Transform lastKnownPlayerPostion;
-    private Transform playerPostion;
+    private GameObject lastKnownPlayerPostion;
     private LineRenderer lineOfSight;
 
     void Start()
@@ -22,8 +21,8 @@ public class Watcher : MonoBehaviour, ISubject
 
         //set vars
         alerted = false;
-        playerPostion = GameObject.FindGameObjectWithTag("Player").transform;
         lineOfSight = GetComponentInChildren<LineRenderer>();
+        lastKnownPlayerPostion = GameObject.Find("PlayerLastKnowLocation");
     }
 
     void Update()
@@ -44,7 +43,7 @@ public class Watcher : MonoBehaviour, ISubject
                 lineOfSight.colorGradient = redColor;
                 //update vars
                 alerted = true;
-                lastKnownPlayerPostion = playerPostion;
+                lastKnownPlayerPostion.transform.position = hit.transform.position;
                 NotifyObservers();
             }
 

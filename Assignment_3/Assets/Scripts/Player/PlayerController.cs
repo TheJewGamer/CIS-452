@@ -109,4 +109,19 @@ public class PlayerController : MonoBehaviour
         //actually moving player here
         rb2d.MovePosition(rb2d.position + movement * speed * Time.fixedDeltaTime);
     }
+
+    public void Caught()
+    {
+        Debug.Log("Game Over");
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        //check
+        if(other.CompareTag("Grunt") || other.CompareTag("Watcher"))
+        {
+            //call
+            Caught();
+        }
+    }
 }

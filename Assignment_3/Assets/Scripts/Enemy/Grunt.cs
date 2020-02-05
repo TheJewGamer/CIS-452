@@ -8,7 +8,7 @@ public class Grunt : MonoBehaviour, IObserver
     //variables
     public bool siteAlert;
     private bool seePlayer;
-    private Transform lastKnownPlayerLocation;
+    public Transform lastKnownPlayerLocation;
     public float speed;
     private GameObject player;
     private LineRenderer lineOfSight;
@@ -16,41 +16,32 @@ public class Grunt : MonoBehaviour, IObserver
     public Gradient greenColor;
     public float distance;
     public float waitToSpawn;
-
+    public float waitToTurn;
     public Watcher watcher;
+    private SpriteRenderer gruntSprite;
+    private bool inProgress;
 
     void Start()
     {
         //set vars
         siteAlert = false;
         seePlayer = false;
+        inProgress = false;
         player = GameObject.FindWithTag("Player");
         lineOfSight = GetComponentInChildren<LineRenderer>();
+        gruntSprite = GetComponent<SpriteRenderer>();
 
         watcher.RegisterObserver(this);
     }
 
     void Update()
     {
-        //random switch looking direction
-        int rand = Random.Range(1,100);
-
         //check
-        if(rand > 15 && rand < 25)
+        if(!seePlayer && !inProgress)
         {
-            //look right
-        }
-        else if(rand > 25 && rand < 35)
-        {
-            //look left
-        }
-        else if(rand > 35 && rand < 45)
-        {
-            //look up
-        }
-        else if (rand > 45 && rand < 55)
-        {
-            //look down
+            Debug.Log("Start");
+            inProgress = true;
+            StartCoroutine(ChangeDirection());
         }
 
         //var
@@ -86,10 +77,14 @@ public class Grunt : MonoBehaviour, IObserver
         if(siteAlert && !seePlayer)
         {
             //wait
+            StopCoroutine(ChangeDirection());
             StartCoroutine(Wait());
         }
         else if(seePlayer)
         {
+            //stop turning
+            StopCoroutine(ChangeDirection());
+
             //look at player
             this.transform.right = (player.transform.position - transform.position);
 
@@ -108,9 +103,53 @@ public class Grunt : MonoBehaviour, IObserver
         this.transform.position = lastKnownPlayerLocation.position;
     }
 
-    public void UpdateStatus(bool input, Transform location)
+    IEnumerator ChangeDirection()
+    {
+        yield return new WaitForSeconds(waitToTurn);
+
+        //random switch looking direction
+        int rand = Random.Range(1,4);
+
+        //check
+        switch (rand)
+        {
+            //look right
+            case 1:
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
+                gruntSprite.flipX = false;
+                break;
+
+            //look left
+            case 2:
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
+                gruntSprite.flipX = true;
+                break;
+
+            //look up
+            case 3:
+                transform.localRotation = Quaternion.Euler(0, 0, 90);
+                gruntSprite.flipX = false;
+                break;
+            
+            //look down
+                case 4:
+                transform.localRotation = Quaternion.Euler(0, 0, -90);
+                gruntSprite.flipX = false;
+                break;
+
+            //error
+            default:
+                Debug.Log("error");
+                break;
+        }
+
+        //update var
+        inProgress = false;
+    }
+
+    public void UpdateStatus(bool input, GameObject location)
     {
         siteAlert = input;
-        lastKnownPlayerLocation = location;
+        lastKnownPlayerLocation = location.transform;
     }
 }
