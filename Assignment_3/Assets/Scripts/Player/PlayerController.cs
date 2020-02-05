@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private bool moving;
     private Rigidbody2D rb2d;
     private float speed = 3f;
+    private Collider2D knife;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
         //get componets
         playerSprite = this.GetComponent<SpriteRenderer>();
         rb2d = this.GetComponent<Rigidbody2D>();
+        knife = this.GetComponentInChildren<Collider2D>();
 
         //set vars
         hidden = false;
@@ -99,8 +101,13 @@ public class PlayerController : MonoBehaviour
 
             //feedback
             playerSprite.sprite = playerHiddenSprite;
-            
-            
+        }
+
+        //stab
+        if(Input.GetKeyDown(KeyCode.F) == true)
+        {
+            //check to see if knife collider is overlapping a grunt
+
         }
     }
 

@@ -93,6 +93,16 @@ public class Grunt : MonoBehaviour, IObserver
         }
     }
 
+    //player was able to sneak up on grunt
+    void Stabbed()
+    {
+        //remove from observer
+        Watcher.RemoveObserver(this);
+
+        //remove gameObject
+        Destroy(this.gameObject);
+    }
+
     IEnumerator Wait()
     {
         Debug.Log("start");
@@ -147,6 +157,7 @@ public class Grunt : MonoBehaviour, IObserver
         inProgress = false;
     }
 
+    //watcher has seen player
     public void UpdateStatus(bool input, GameObject location)
     {
         siteAlert = input;
