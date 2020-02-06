@@ -8,12 +8,14 @@ public class WinMenu : MonoBehaviour
     public void RestartPushed()
     {
         //reset level
+        Time.timeScale = 1;
         SceneManager.LoadScene("Game");
     }
 
     public void MainMenuPushed()
     {
         //go to main menu
+        Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }
 }

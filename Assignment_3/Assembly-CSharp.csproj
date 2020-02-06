@@ -47,12 +47,14 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Enemy\Grunt.cs" />
      <Compile Include="Assets\Scripts\Enemy\Watcher.cs" />
+     <Compile Include="Assets\Scripts\Goal.cs" />
      <Compile Include="Assets\Scripts\Menu\LoseMenu.cs" />
      <Compile Include="Assets\Scripts\Menu\mainMenuController.cs" />
      <Compile Include="Assets\Scripts\Menu\WinMenu.cs" />
      <Compile Include="Assets\Scripts\Patterns\IObserver.cs" />
      <Compile Include="Assets\Scripts\Patterns\ISubject.cs" />
      <Compile Include="Assets\Scripts\Player\CameraFollower.cs" />
+     <Compile Include="Assets\Scripts\Player\Knife.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/Documents/GitHub/CIS-452/Assignment_3/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

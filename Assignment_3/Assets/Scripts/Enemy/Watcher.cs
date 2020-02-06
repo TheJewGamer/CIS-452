@@ -13,11 +13,12 @@ public class Watcher : MonoBehaviour, ISubject
     public float rotaionSpeed;
     public Gradient redColor;
     public Gradient greenColor;
-    private GameObject lastKnownPlayerPostion;
     private LineRenderer lineOfSight;
-    private bool timeToMove;
-    private bool moving;
-    public int timeToWait;
+    public float speed;
+    private float waitTime;
+    public float startWaitTime = 7;
+    public float alertedGruntSightDistance = 8;
+
 
     private void Start()
     {
@@ -26,46 +27,48 @@ public class Watcher : MonoBehaviour, ISubject
 
         //set vars
         alerted = false;
-        timeToMove = true;
+        waitTime = startWaitTime;
         lineOfSight = GetComponentInChildren<LineRenderer>();
-        lastKnownPlayerPostion = GameObject.Find("PlayerLastKnowLocation");
     }
 
     private void Update()
     {
-        //get point to move to
-        if(timeToMove)
-        {
-            //update var
-            timeToMove = false;
+        //move to guard point
+        this.transform.position = Vector2.MoveTowards(this.transform.position, guardPoints[guardPointIndex].position, speed * Time.deltaTime);
 
-            //get point to move to
-            if(guardPointIndex == guardPoints.Length - 1)
+        //check to see if at guard point
+        if(Vector2.Distance(this.transform.position, guardPoints[guardPointIndex].position) < .2f)
+        {
+            //check to see if done waiting
+            if(waitTime <= 0)
             {
-                guardPointIndex = 0;
+                //update var
+                waitTime = startWaitTime;
+
+                //move to next location
+                if(guardPointIndex == guardPoints.Length - 1)
+                {
+                    guardPointIndex = 0;
+                }
+                else
+                {
+                    
+                    guardPointIndex++;
+                }
             }
-            //update var
-            moving = true;
+            else
+            {
+                //wait
+                waitTime -= Time.deltaTime;
+
+                //rotate
+                transform.Rotate(Vector3.forward * rotaionSpeed * Time.deltaTime);
+            }
         }
-
-        //moving to point
-        if(moving  && !alerted)
+        else
         {
-            //look at point
-            this.transform.right = guardPoints[guardPointIndex].position - transform.position;
-
-            //move to point
-            this.transform.position = Vector2.MoveTowards(this.transform.position, guardPoints[guardPointIndex].position, speed * Time.deltaTime);
-        }
-
-        //check
-        if(this.transform.position == guardPoints[guardPointIndex].position)
-        {
-            //update var
-            moving = false;
-
-            //start waiting
-            StartCoroutine(Guarding());
+            //look at guard point
+            this.transform.right = guardPoints[guardPointIndex].transform.position - transform.position;
         }
 
         //var
@@ -80,20 +83,23 @@ public class Watcher : MonoBehaviour, ISubject
             //player seen
             if(hit.collider.CompareTag("Player"))
             {
+                //stop
+                StopCoroutine(AlertReset());
+
                 //feedback
                 lineOfSight.colorGradient = redColor;
-                this.transform.right = player.transform.position - transform.position;
+                this.transform.right = hit.transform.position - transform.position;
 
                 //update vars
                 alerted = true;
-                lastKnownPlayerPostion.transform.position = hit.transform.position;
 
                 //call
                 NotifyObservers();
-            }
 
-            //done
-            return;   
+                //start time
+                StartCoroutine(AlertReset());
+
+            } 
         }
         //nothing hit
         else
@@ -105,12 +111,6 @@ public class Watcher : MonoBehaviour, ISubject
         //feeback
         lineOfSight.SetPosition(0, transform.position);
         lineOfSight.colorGradient = greenColor;
-
-        //update var
-        alerted = false;
-
-        //call
-        NotifyObservers();
     }
 
 
@@ -130,6 +130,15 @@ public class Watcher : MonoBehaviour, ISubject
         }
     }
 
+    IEnumerator AlertReset()
+    {
+        yield return new WaitForSeconds(10);
+
+        alerted = false;
+
+        NotifyObservers();
+    }
+
     //alert other units of player
     public void NotifyObservers()
     {
@@ -137,16 +146,7 @@ public class Watcher : MonoBehaviour, ISubject
         foreach(IObserver item in obs)
         {
             //set everything to alert
-            item.UpdateStatus(alerted, lastKnownPlayerPostion);
+            item.UpdateStatus(alerted, alertedGruntSightDistance);
         }
-    }
-
-    private IEnumerator Guarding()
-    {
-        //wait
-        yield return new WaitForSeconds(timeToWait);
-
-        //update var
-        timeToMove = true;
     }
 }

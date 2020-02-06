@@ -6,42 +6,63 @@ using UnityEngine.AI;
 public class Grunt : MonoBehaviour, IObserver
 {
     //variables
-    public bool siteAlert;
     private bool seePlayer;
-    public Transform lastKnownPlayerLocation;
     public float speed;
-    private GameObject player;
     private LineRenderer lineOfSight;
     public Gradient redColor;
     public Gradient greenColor;
-    public float distance;
-    public float waitToSpawn;
-    public float waitToTurn;
-    public Watcher watcher;
+    private float distance;
+    private Watcher watcher;
     private SpriteRenderer gruntSprite;
     private bool inProgress;
+    public bool lookingLeft;
+    public float eyeSightDistance = 5;
+    private float waitTime;
+    private float startWaitTime = 3;
 
     void Start()
     {
         //set vars
-        siteAlert = false;
+        waitTime = startWaitTime;
+        distance = eyeSightDistance;
         seePlayer = false;
-        inProgress = false;
-        player = GameObject.FindWithTag("Player");
         lineOfSight = GetComponentInChildren<LineRenderer>();
         gruntSprite = GetComponent<SpriteRenderer>();
+        watcher = GameObject.FindGameObjectWithTag("Watcher").GetComponent<Watcher>();
 
+        //pattern
         watcher.RegisterObserver(this);
     }
 
     void Update()
     {
         //check
-        if(!seePlayer && !inProgress)
+        if(!seePlayer)
         {
-            Debug.Log("Start");
-            inProgress = true;
-            StartCoroutine(ChangeDirection());
+            if(waitTime <= 0)
+            {
+                //update var
+                waitTime = startWaitTime;
+
+                //move to next location
+                if(lookingLeft)
+                {
+                    //look right
+                    transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    lookingLeft = false;
+                }
+                else
+                {
+                    //look left
+                    transform.localRotation = Quaternion.Euler(0, 180, 0);
+                    lookingLeft = true;
+                }
+            }
+            else
+            {
+                //wait
+                waitTime -= Time.deltaTime;
+            }
         }
 
         //var
@@ -71,25 +92,15 @@ public class Grunt : MonoBehaviour, IObserver
 
         //line
         lineOfSight.SetPosition(0, transform.position);
-        lineOfSight.colorGradient = greenColor;
+        //lineOfSight.colorGradient = greenColor;
 
-        //check
-        if(siteAlert && !seePlayer)
+        if(seePlayer)
         {
-            //wait
-            StopCoroutine(ChangeDirection());
-            StartCoroutine(Wait());
-        }
-        else if(seePlayer)
-        {
-            //stop turning
-            StopCoroutine(ChangeDirection());
-
             //look at player
-            this.transform.right = (player.transform.position - transform.position);
+            this.transform.right = (hit.transform.position - transform.position);
 
             //go to player
-            this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+            this.transform.position = Vector2.MoveTowards(this.transform.position, hit.transform.position, speed * Time.deltaTime);
         }
     }
 
@@ -97,70 +108,23 @@ public class Grunt : MonoBehaviour, IObserver
     void Stabbed()
     {
         //remove from observer
-        Watcher.RemoveObserver(this);
+        watcher.RemoveObserver(this);
 
         //remove gameObject
         Destroy(this.gameObject);
     }
 
-    IEnumerator Wait()
-    {
-        Debug.Log("start");
-
-        yield return new WaitForSeconds(waitToSpawn);
-
-        //move this object to site
-        this.transform.position = lastKnownPlayerLocation.position;
-    }
-
-    IEnumerator ChangeDirection()
-    {
-        yield return new WaitForSeconds(waitToTurn);
-
-        //random switch looking direction
-        int rand = Random.Range(1,4);
-
-        //check
-        switch (rand)
-        {
-            //look right
-            case 1:
-                transform.localRotation = Quaternion.Euler(0, 0, 0);
-                gruntSprite.flipX = false;
-                break;
-
-            //look left
-            case 2:
-                transform.localRotation = Quaternion.Euler(0, 0, 0);
-                gruntSprite.flipX = true;
-                break;
-
-            //look up
-            case 3:
-                transform.localRotation = Quaternion.Euler(0, 0, 90);
-                gruntSprite.flipX = false;
-                break;
-            
-            //look down
-                case 4:
-                transform.localRotation = Quaternion.Euler(0, 0, -90);
-                gruntSprite.flipX = false;
-                break;
-
-            //error
-            default:
-                Debug.Log("error");
-                break;
-        }
-
-        //update var
-        inProgress = false;
-    }
-
     //watcher has seen player
-    public void UpdateStatus(bool input, GameObject location)
+    public void UpdateStatus(bool siteAlert, float sightDistance)
     {
-        siteAlert = input;
-        lastKnownPlayerLocation = location.transform;
+        //check
+        if(siteAlert)
+        {
+            distance = sightDistance;
+        }
+        else
+        {
+            distance = eyeSightDistance;
+        }
     }
 }

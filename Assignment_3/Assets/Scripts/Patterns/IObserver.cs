@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IObserver
 {
-    void UpdateStatus(bool input, GameObject postion);
+    void UpdateStatus(bool siteAlert, float distance);
 }

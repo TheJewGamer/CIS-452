@@ -9,11 +9,11 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer playerSprite;
     public Sprite playerHiddenSprite;
     public Sprite playerVisiableSprite;
-    private bool hidden;
     private bool moving;
     private Rigidbody2D rb2d;
     private float speed = 3f;
     private Collider2D knife;
+    public GameObject GameOverMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour
         knife = this.GetComponentInChildren<Collider2D>();
 
         //set vars
-        hidden = false;
         moving = false;
     }
 
@@ -44,9 +43,8 @@ public class PlayerController : MonoBehaviour
             gameObject.layer = 0;
 
             //feedback
-            transform.localRotation = Quaternion.Euler(0, 0, 0);
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
             playerSprite.sprite = playerVisiableSprite;
-            playerSprite.flipX = true;
         }
         else if(movement.x > 0)
         {
@@ -58,7 +56,6 @@ public class PlayerController : MonoBehaviour
             //feedback
             transform.localRotation = Quaternion.Euler(0, 0, 0);
             playerSprite.sprite = playerVisiableSprite;
-            playerSprite.flipX = false;
         }
         else if(movement.y > 0)
         {
@@ -69,7 +66,6 @@ public class PlayerController : MonoBehaviour
 
             //feedback
             transform.localRotation = Quaternion.Euler(0, 0, 90);
-            playerSprite.flipX = false;
             playerSprite.sprite = playerVisiableSprite;
         }
         else if(movement.y < 0)
@@ -81,7 +77,6 @@ public class PlayerController : MonoBehaviour
 
             //feedback
             transform.localRotation = Quaternion.Euler(0, 0, -90);
-            playerSprite.flipX = false;
             playerSprite.sprite = playerVisiableSprite;
         }
         else
@@ -95,7 +90,6 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) == true && !moving)
         {
             //update vars
-            hidden = true;
             gameObject.tag = "Hidden";
             gameObject.layer = 2;
 
@@ -106,8 +100,18 @@ public class PlayerController : MonoBehaviour
         //stab
         if(Input.GetKeyDown(KeyCode.F) == true)
         {
-            //check to see if knife collider is overlapping a grunt
+            //raytrace
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1.5f);
 
+            //check
+            if(hit.collider != null)
+            {
+                if(hit.collider.CompareTag("Grunt") == true)
+                {
+                    //call
+                    hit.collider.SendMessage("Stabbed");
+                }
+            }
         }
     }
 
@@ -119,7 +123,11 @@ public class PlayerController : MonoBehaviour
 
     public void Caught()
     {
-        Debug.Log("Game Over");
+        //pause
+        Time.timeScale = 0;
+
+        //open menu
+        GameOverMenu.SetActive(true);
     }
 
     void OnTriggerEnter2D(Collider2D other)
