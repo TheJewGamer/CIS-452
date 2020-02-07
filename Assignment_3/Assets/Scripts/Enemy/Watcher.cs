@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * Watcher.cs
+    * Assignment #3
+    * Controls the Watcher also uses the strategy pattern
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -105,12 +112,12 @@ public class Watcher : MonoBehaviour, ISubject
         else
         {
             //feedback
+            lineOfSight.colorGradient = greenColor;
             lineOfSight.SetPosition(1, transform.position + transform.right * distance);
         }
 
         //feeback
         lineOfSight.SetPosition(0, transform.position);
-        lineOfSight.colorGradient = greenColor;
     }
 
 
@@ -130,7 +137,7 @@ public class Watcher : MonoBehaviour, ISubject
         }
     }
 
-    IEnumerator AlertReset()
+    private IEnumerator AlertReset()
     {
         yield return new WaitForSeconds(10);
 

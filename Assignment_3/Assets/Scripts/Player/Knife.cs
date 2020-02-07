@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * Knife.cs
+    * Assignment #3
+    * Controls the player's ability to kill grunts
+*/
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

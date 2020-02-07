@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * LoseMenu.cs
+    * Assignment #3
+    * Controls the goal
+*/
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

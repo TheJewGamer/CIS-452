@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * Grunt.cs
+    * Assignment #3
+    * Controls the Grunt also uses the strategy pattern
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +27,7 @@ public class Grunt : MonoBehaviour, IObserver
     private float waitTime;
     private float startWaitTime = 3;
 
-    void Start()
+    private void Start()
     {
         //set vars
         waitTime = startWaitTime;
@@ -34,7 +41,7 @@ public class Grunt : MonoBehaviour, IObserver
         watcher.RegisterObserver(this);
     }
 
-    void Update()
+    private void Update()
     {
         //check
         if(!seePlayer)
@@ -82,6 +89,7 @@ public class Grunt : MonoBehaviour, IObserver
             else
             {
                 seePlayer = false;
+                lineOfSight.colorGradient = greenColor;
             }   
         }
         else
@@ -92,7 +100,6 @@ public class Grunt : MonoBehaviour, IObserver
 
         //line
         lineOfSight.SetPosition(0, transform.position);
-        //lineOfSight.colorGradient = greenColor;
 
         if(seePlayer)
         {
@@ -105,7 +112,7 @@ public class Grunt : MonoBehaviour, IObserver
     }
 
     //player was able to sneak up on grunt
-    void Stabbed()
+    public void Stabbed()
     {
         //remove from observer
         watcher.RemoveObserver(this);
