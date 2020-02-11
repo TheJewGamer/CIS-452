@@ -45,6 +45,13 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Character.cs" />
+     <Compile Include="Assets\Scripts\Classes\ClassRanger.cs" />
+     <Compile Include="Assets\Scripts\Classes\ClassSpy.cs" />
+     <Compile Include="Assets\Scripts\Decorators\WeaponDecorator.cs" />
+     <Compile Include="Assets\Scripts\Decorators\WeaponKnife.cs" />
+     <Compile Include="Assets\Scripts\Decorators\WeaponRifle.cs" />
+     <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\Menus\LoseWinMenuController.cs" />
      <Compile Include="Assets\Scripts\Menus\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
