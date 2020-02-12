@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\Decorators\WeaponKnife.cs" />
      <Compile Include="Assets\Scripts\Decorators\WeaponRifle.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\Menus\CharacterSelectionMenu.cs" />
      <Compile Include="Assets\Scripts\Menus\LoseWinMenuController.cs" />
      <Compile Include="Assets\Scripts\Menus\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />

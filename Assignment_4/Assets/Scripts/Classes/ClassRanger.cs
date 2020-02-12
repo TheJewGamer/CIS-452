@@ -11,11 +11,11 @@ public class ClassRanger : Character
 
     public override int GetHealth()
     {
-        return this.GetHealth() + 5;
+        return 5;
     }
 
     public override float GetSpeed()
     {
-        return this.GetSpeed() + 3f;
+        return 3f;
     }
 }

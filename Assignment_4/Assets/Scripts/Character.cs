@@ -9,6 +9,7 @@ public abstract class Character
     //weapon
     public float range;
     public int damage;
+    public int health;
 
     //weapon
     public virtual float GetRange()

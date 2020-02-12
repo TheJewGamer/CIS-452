@@ -13,7 +13,7 @@ public class WeaponKnife : WeaponDecorator
 
     public override int GetDamage()
     {
-        return character.GetDamage() + 3;
+        return character.GetDamage() + 5;
     }
 
     public override float GetRange()

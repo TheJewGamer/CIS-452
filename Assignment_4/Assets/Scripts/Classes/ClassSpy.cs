@@ -11,11 +11,11 @@ public class ClassSpy : Character
 
     public override int GetHealth()
     {
-        return this.GetHealth() + 3;
+        return 3;
     }
 
     public override float GetSpeed()
     {
-        return this.GetSpeed() + 5f;
+        return 5f;
     }
 } 

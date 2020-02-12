@@ -13,7 +13,7 @@ public class WeaponRifle : WeaponDecorator
 
     public override int GetDamage()
     {
-        return character.GetDamage() + 100;
+        return character.GetDamage() + 2;
     }
 
     public override float GetRange()
