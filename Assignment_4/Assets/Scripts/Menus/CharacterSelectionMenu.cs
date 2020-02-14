@@ -199,6 +199,7 @@ public class CharacterSelectionMenu : MonoBehaviour
     public void BackPushed()
     {
         //menu update
+        resetGear();
         classMenu.SetActive(true);
         gearMenu.SetActive(false);
     }

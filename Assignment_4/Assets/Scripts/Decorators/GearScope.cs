@@ -18,7 +18,7 @@ public class GearScope : GearDecorator
 
     public override float GetSpeed()
     {
-        return character.GetSpeed() - 1f;
+        return character.GetSpeed() - 2f;
     }
 
     public override int GetHealth()

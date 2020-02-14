@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 direction;
     public GameObject hitEffect;
     public GameObject muzzelFlash;
+    public Image healthDisplay;
+    private float healthDisplayInc;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +27,10 @@ public class PlayerController : MonoBehaviour
 
     public void SetCharacter(Character input)
     {
+        //set vars
         this.character = input;
         health = this.character.GetHealth();
+        healthDisplayInc = (255f/(float)health) / 250f;
     }
 
     // Update is called once per frame
@@ -76,9 +80,12 @@ public class PlayerController : MonoBehaviour
             //dec
             health--;
 
-            Debug.Log(health); 
+            //update health display
+            Color temp = healthDisplay.color;
+            temp.a += healthDisplayInc;
+            healthDisplay.color = temp;
 
-            //feedback
+            //flash hit
             StartCoroutine(hitFlash());
 
             //check
