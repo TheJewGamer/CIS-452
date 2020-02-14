@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class ClassRanger : Character
 {
-    public ClassRanger()
-    {
-        this.description = "Ranger";
-    }
-
+    //base health
     public override int GetHealth()
     {
-        return 5;
+        return 7;
     }
 
+    //base speed
     public override float GetSpeed()
     {
         return 3f;
+    }
+
+    //base damage
+    public override int GetDamage()
+    {
+        return 5;
     }
 }

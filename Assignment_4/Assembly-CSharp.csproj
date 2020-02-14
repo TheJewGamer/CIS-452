@@ -45,17 +45,22 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\Classes\ClassRanger.cs" />
      <Compile Include="Assets\Scripts\Classes\ClassSpy.cs" />
-     <Compile Include="Assets\Scripts\Decorators\WeaponDecorator.cs" />
-     <Compile Include="Assets\Scripts\Decorators\WeaponKnife.cs" />
-     <Compile Include="Assets\Scripts\Decorators\WeaponRifle.cs" />
+     <Compile Include="Assets\Scripts\Decorators\GearDecorator.cs" />
+     <Compile Include="Assets\Scripts\Decorators\GearGlasses.cs" />
+     <Compile Include="Assets\Scripts\Decorators\GearHeavyArmor.cs" />
+     <Compile Include="Assets\Scripts\Decorators\GearLightArmor.cs" />
+     <Compile Include="Assets\Scripts\Decorators\GearScope.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\Menus\CharacterSelectionMenu.cs" />
      <Compile Include="Assets\Scripts\Menus\LoseWinMenuController.cs" />
      <Compile Include="Assets\Scripts\Menus\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\goalManager.cs" />
+     <Compile Include="Assets\Scripts\spawnManager.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0f6/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

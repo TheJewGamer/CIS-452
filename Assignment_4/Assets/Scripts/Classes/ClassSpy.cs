@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class ClassSpy : Character
 {
-    public ClassSpy()
-    {
-        this.description = "Spy";
-    }
-
+    //base health
     public override int GetHealth()
     {
-        return 3;
+        return 5;
     }
 
+    //base speed
     public override float GetSpeed()
     {
         return 5f;
+    }
+
+    //base damage
+    public override int GetDamage()
+    {
+        return 3;
     }
 } 

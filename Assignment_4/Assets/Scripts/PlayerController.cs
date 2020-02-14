@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,13 +12,21 @@ public class PlayerController : MonoBehaviour
     public GameObject gameOverMenu;
     public GameObject winMenu;
     private int health;
+    private Vector2 direction;
+    public GameObject hitEffect;
+    public GameObject muzzelFlash;
 
     // Start is called before the first frame update
     void Start()
     {
         //get componets
         rb2d = this.GetComponent<Rigidbody2D>();
-        health = character.GetHealth();
+    }
+
+    public void SetCharacter(Character input)
+    {
+        this.character = input;
+        health = this.character.GetHealth();
     }
 
     // Update is called once per frame
@@ -27,43 +36,92 @@ public class PlayerController : MonoBehaviour
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
 
+        //actually moving player here
+        rb2d.MovePosition(rb2d.position + movement * character.GetSpeed() * Time.fixedDeltaTime);
+
+         //look towards mouse
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+        transform.right= direction;
+
         //Attack
         if(Input.GetMouseButtonDown(0) == true)
         {
-            //raytrace
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, character.GetRange());
+            //feedback
+            StartCoroutine(Flash());
 
-            //check
-            if(hit.collider != null)
+            //raytrace
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, this.direction);
+
+            if(hit.collider !=null)
             {
-                if(hit.collider.CompareTag("Enemy") == true)
+                //enemy hit
+                if(hit.collider.CompareTag("Enemy"))
                 {
-                    //call
-                    hit.collider.SendMessage("Attacked");
+                    //notify
+                    hit.transform.SendMessageUpwards("Attacked");
                 }
             }
         }
     }
 
-    void LateUpdate()
+    //enemy overlapped player
+    void OnTriggerEnter2D(Collider2D other)
     {
-        //actually moving player here
-        rb2d.MovePosition(rb2d.position + movement * character.GetSpeed() * Time.fixedDeltaTime);
-    }
-
-    public void SetClass(string input)
-    {
-        switch(input)
+        if(other.tag == "Enemy")
         {
-            case "Ranger":
-                this.character = new ClassRanger();
-                break;
-            case "Spy":
-                this.character = new ClassSpy();
-                break;
-            default:
-                Debug.Log("No class found");
-                break;
+            //destory enemy that hit player
+            Destroy(other.gameObject);
+
+            //dec
+            health--;
+
+            Debug.Log(health); 
+
+            //feedback
+            StartCoroutine(hitFlash());
+
+            //check
+            if(health == 0)
+            {
+                //stop game
+                Time.timeScale = 0;
+
+                //open menu
+                gameOverMenu.SetActive(true);
+            }
         }
     }
+
+    //red flash effect
+    private IEnumerator hitFlash()
+    {
+        //enable
+        hitEffect.SetActive(true);
+
+        yield return new WaitForSeconds(.05f);
+
+        hitEffect.SetActive(false);
+    }
+
+    //send damage to enemy
+    public int GetDamage()
+    {
+        return character.GetDamage();
+    }
+
+    //muzzle flash
+    private IEnumerator Flash()
+    {
+        //enable
+        muzzelFlash.SetActive(true);
+
+        //wait
+        yield return new WaitForSeconds(.05f);
+
+        //turn off
+        muzzelFlash.SetActive(false);
+    }
 }
+
+
