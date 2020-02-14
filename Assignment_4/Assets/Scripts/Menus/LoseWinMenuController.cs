@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * LoseWinMenuController.cs
+    * Assignment #4
+    * Controls the Win and lose menu
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;

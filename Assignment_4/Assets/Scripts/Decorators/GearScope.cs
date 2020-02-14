@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * GearScope.cs
+    * Assignment #4
+    * Settings for the scope decorator
+*/
+
 using UnityEngine;
 using System.Collections;
 

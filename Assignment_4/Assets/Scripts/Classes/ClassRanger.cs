@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * ClassRanger.cs
+    * Assignment #4
+    * Setups the Ranger class
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

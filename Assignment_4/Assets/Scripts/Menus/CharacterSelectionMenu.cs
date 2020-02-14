@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * CharacterSelectionMenu.cs
+    * Assignment #4
+    * controls the character creation menu
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

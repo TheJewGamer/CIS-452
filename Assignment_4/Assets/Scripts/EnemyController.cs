@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * EnemyController.cs
+    * Assignment #4
+    * Controllers the enemies
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

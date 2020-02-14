@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * GearDecorator.cs
+    * Assignment #4
+    * Sets up the decorator used in the game
+*/
+
 using UnityEngine;
 using System.Collections;
 

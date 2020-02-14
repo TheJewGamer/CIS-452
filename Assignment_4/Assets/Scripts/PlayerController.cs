@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * PlayerController.cs
+    * Assignment #4
+    * controls the player
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;

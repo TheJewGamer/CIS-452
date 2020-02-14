@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * GearGlasses.cs
+    * Assignment #4
+    * Settings for the glasses decorator
+*/
+
 using UnityEngine;
 using System.Collections;
 

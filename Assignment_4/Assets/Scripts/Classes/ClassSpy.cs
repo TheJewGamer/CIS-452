@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * ClassSpy.cs
+    * Assignment #4
+    * Sets up the spy class
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

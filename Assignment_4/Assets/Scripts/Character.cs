@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * Character.cs
+    * Assignment #4
+    * sets up the character object
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * GearLightArmor.cs
+    * Assignment #4
+    * Settings for the light armor decorator
+*/
+
 using UnityEngine;
 using System.Collections;
 

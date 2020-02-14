@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * GearHeavyArmor.cs
+    * Assignment #4
+    * Settings for the heavy armor decorator
+*/
+
 using UnityEngine;
 using System.Collections;
 

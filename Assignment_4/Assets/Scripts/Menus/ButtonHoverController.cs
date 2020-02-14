@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * ButtonHoverController.cs
+    * Assignment #4
+    * controls the buttons text for hovering
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

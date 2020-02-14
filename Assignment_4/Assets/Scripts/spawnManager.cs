@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * goalManager.cs
+    * Assignment #4
+    * controls the spawning of enemies
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
