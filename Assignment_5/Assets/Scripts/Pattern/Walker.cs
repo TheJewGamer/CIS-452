@@ -1,3 +1,5 @@
+using UnityEngine;
+
 /*
     * Jacob Cohen
     * Walker.cs
@@ -12,7 +14,15 @@ public class Walker : BadGuy
         //set stats
         this.badGuyType = "walker";
         this.damage = 2;
-        this.speed = 1f;
+        this.speed = 2.5f;
         this.health = 3;
+    }
+
+    private void Awake() 
+    {
+        //set sprite
+        GetComponent<SpriteRenderer>().sprite = GameObject.Find("walkerSprite").GetComponent<SpriteRenderer>().sprite;
+
+
     }
 }

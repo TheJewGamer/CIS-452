@@ -6,9 +6,9 @@
 */
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,17 +17,19 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     public GameObject gameOverMenu;
     public GameObject winMenu;
-    public float speed = 2f;
-    private int health;
+    public float speed = 4f;
+    private int health = 10;
     private Vector2 direction;
     public GameObject hitEffect;
     public GameObject muzzelFlash;
+    public Text healthText;
     
     // Start is called before the first frame update
     void Start()
     {
         //get componets
         rb2d = this.GetComponent<Rigidbody2D>();
+        muzzelFlash.SetActive(false);
     }
 
     // Update is called once per frame
@@ -71,14 +73,15 @@ public class PlayerController : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
+            //get damage and update health
+            health -= other.GetComponent<BadGuy>().damage;
+
             //destory enemy that hit player
             Destroy(other.gameObject);
 
-            //dec
-            health--;
-
             //update health display
-
+            healthText.text = health.ToString();
+            
             //flash hit
             StartCoroutine(hitFlash());
 

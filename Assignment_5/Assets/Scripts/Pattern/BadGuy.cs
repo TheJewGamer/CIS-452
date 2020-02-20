@@ -12,7 +12,7 @@ public class BadGuy : MonoBehaviour
 {
     //stats
     protected string badGuyType{get; set;}
-    protected int damage{get; set;}
+    public int damage{get; set;}
     protected float speed{get; set;}
     protected int health{get; set;}
 
@@ -25,8 +25,8 @@ public class BadGuy : MonoBehaviour
     {
         //set vars
         player = GameObject.FindWithTag("Player");
-        hitSprite = GameObject.Find("enemyHitSprite").GetComponent<SpriteRenderer>().sprite;
-        normalSprite = GameObject.Find("enemyNormalSprite").GetComponent<SpriteRenderer>().sprite;
+        hitSprite = GameObject.Find("hitSprite").GetComponent<SpriteRenderer>().sprite;
+        normalSprite = GetComponent<SpriteRenderer>().sprite;
     }
 
     public void Attacked()
@@ -48,7 +48,7 @@ public class BadGuy : MonoBehaviour
     private void Update()
     {
          //move towards player
-        this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, 3f * Time.deltaTime);
+        this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
 
         //look at player
         this.transform.right = (player.transform.position - transform.position);
@@ -64,5 +64,10 @@ public class BadGuy : MonoBehaviour
 
         //revert
         this.gameObject.GetComponent<SpriteRenderer>().sprite = normalSprite;
+    }
+
+    public int getDamage()
+    {
+        return damage;
     }
 }

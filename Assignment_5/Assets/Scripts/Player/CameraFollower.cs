@@ -12,7 +12,7 @@ using UnityEngine;
 public class CameraFollower : MonoBehaviour
 {
     //variables
-    private GameObject player;
+    public GameObject player;
 
     private Vector3 offset;
 
@@ -21,9 +21,6 @@ public class CameraFollower : MonoBehaviour
     {
         //set offset
         offset = this.transform.position - player.transform.position;
-
-        //get player
-        player = GameObject.FindWithTag("Player");
     }
 
     void LateUpdate()

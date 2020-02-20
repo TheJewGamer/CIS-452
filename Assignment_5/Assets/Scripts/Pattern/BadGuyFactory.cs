@@ -10,23 +10,25 @@ using UnityEngine;
 public class BadGuyFactory : MonoBehaviour 
 {
     //main function that choose which badguy to make
-    public BadGuy CreateBadGuy(string type)
+    public GameObject CreateBadGuy(string badGuyType, GameObject badGuy)
     {
-        BadGuy badGuy = null;
 
         //check
-        switch(type)
+        switch(badGuyType)
         {
             case "walker":
-                badGuy = new Walker();
+                badGuy.AddComponent<Walker>();
                 break;
 
             case "runner":
-                badGuy = new Runner(); 
+                badGuy.AddComponent<Runner>();
+                break;
+            case "heavy":
+                badGuy.AddComponent<Heavy>();
                 break;
 
             default:
-            Debug.Log("no badguy type found for: " + type);
+            Debug.Log("no bad guy type found for: " + badGuyType);
             break;
         }
 
