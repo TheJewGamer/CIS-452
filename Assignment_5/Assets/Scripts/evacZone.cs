@@ -1,18 +1,34 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * evacZone.cs
+    * Assignment #5
+    * controls the evac zone
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class evacZone : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    //variables
+    public GameObject winMenu;
+
+    private void Start() 
     {
-        
+        winMenu.SetActive(false);    
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other) 
     {
-        
+        //check to make sure its player
+        if(other.CompareTag("Player"))
+        {
+            //pause game
+            Time.timeScale = 0;
+
+            //load menu
+            winMenu.SetActive(true);
+        }    
     }
 }

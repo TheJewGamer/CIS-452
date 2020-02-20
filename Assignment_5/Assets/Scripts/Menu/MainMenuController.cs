@@ -25,6 +25,8 @@ public class MainMenuController : MonoBehaviour
 
     public void StartPushed()
     {
+        Time.timeScale = 1;
+
         SceneManager.LoadScene("Game");
     }
 

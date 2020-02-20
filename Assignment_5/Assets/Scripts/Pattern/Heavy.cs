@@ -1,11 +1,12 @@
-using UnityEngine;
-
 /*
     * Jacob Cohen
     * Heavy.cs
     * Assignment #5
     * sets the heavy's stats
 */
+
+using UnityEngine;
+
 public class Heavy : BadGuy 
 {
     //constructor

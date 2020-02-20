@@ -1,11 +1,19 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * GameManager.cs
+    * Assignment #5
+    * Controls the timer
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     //variables
-    public GameObject evacText;
+    public Text evacText;
     public GameObject evacZone;
     public GameObject evacArrow;
 
@@ -13,7 +21,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //set up
-        evacText.SetActive(false);
         evacZone.SetActive(false);
         evacArrow.SetActive(false);
 
@@ -27,7 +34,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(15);
 
         //evac
-        evacText.SetActive(true);
+        evacText.text = "Evac Available";
         evacZone.SetActive(true);
         evacArrow.SetActive(true);
     }

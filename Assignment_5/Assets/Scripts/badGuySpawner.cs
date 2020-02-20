@@ -1,6 +1,12 @@
+/*
+    * Jacob Cohen
+    * badGuySpawner.cs
+    * Assignment #5
+    * controls the spawnning of badguys
+*/
+
 using UnityEngine;
 using System.Collections.Generic;
-
 
 public class badGuySpawner : MonoBehaviour 
 {
