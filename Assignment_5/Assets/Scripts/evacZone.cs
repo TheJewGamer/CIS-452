@@ -16,7 +16,7 @@ public class evacZone : MonoBehaviour
 
     private void Start() 
     {
-        winMenu.SetActive(false);    
+        winMenu.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other) 

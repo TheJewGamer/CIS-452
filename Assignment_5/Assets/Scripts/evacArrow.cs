@@ -23,6 +23,6 @@ public class evacArrow : MonoBehaviour
     void LateUpdate()
     {
         //look at evac zone
-        this.transform.right = (evacZone.transform.position - transform.position);
+        this.transform.up = (evacZone.transform.position - transform.position) * -1;
     }
 }

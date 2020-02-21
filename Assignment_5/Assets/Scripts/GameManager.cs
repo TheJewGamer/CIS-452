@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //set up
+        evacText.text = "No";
         evacZone.SetActive(false);
         evacArrow.SetActive(false);
 
@@ -31,10 +32,10 @@ public class GameManager : MonoBehaviour
     private IEnumerator Wait()
     {
         //wait for 30 seconds
-        yield return new WaitForSecondsRealtime(15);
+        yield return new WaitForSecondsRealtime(30);
 
         //evac
-        evacText.text = "Evac Available";
+        evacText.text = "Yes";
         evacZone.SetActive(true);
         evacArrow.SetActive(true);
     }
