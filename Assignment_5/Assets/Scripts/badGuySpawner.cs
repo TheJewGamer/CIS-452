@@ -11,7 +11,7 @@ using System.Collections.Generic;
 public class badGuySpawner : MonoBehaviour 
 {
     //variables
-    float spawnDelay = 1.5f;
+    float spawnDelay = .8f;
     private List<Transform> spawners = new List<Transform>();
     public GameObject badGuyPreFab;
     private GameObject badGuyCurrentSpawn;

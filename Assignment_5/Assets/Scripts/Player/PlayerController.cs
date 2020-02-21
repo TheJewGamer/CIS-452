@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(hitFlash());
 
             //check
-            if(health == 0)
+            if(health <= 0)
             {
                 //stop game
                 Time.timeScale = 0;
