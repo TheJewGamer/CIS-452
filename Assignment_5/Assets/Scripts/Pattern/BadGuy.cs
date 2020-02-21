@@ -65,9 +65,4 @@ public class BadGuy : MonoBehaviour
         //revert
         this.gameObject.GetComponent<SpriteRenderer>().sprite = normalSprite;
     }
-
-    public int getDamage()
-    {
-        return damage;
-    }
 }
