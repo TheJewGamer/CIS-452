@@ -49,12 +49,15 @@
      <Compile Include="Assets\Scripts\Menu\WinLoseMenuController.cs" />
      <Compile Include="Assets\Scripts\Pattern\Character.cs" />
      <Compile Include="Assets\Scripts\Pattern\CharacterCreator.cs" />
+     <Compile Include="Assets\Scripts\Pattern\EnemyCharacter.cs" />
      <Compile Include="Assets\Scripts\Pattern\EnemyRunner.cs" />
      <Compile Include="Assets\Scripts\Pattern\EnemyWalker.cs" />
+     <Compile Include="Assets\Scripts\Pattern\FriendlyCharacter.cs" />
      <Compile Include="Assets\Scripts\Pattern\FriendlyRunner.cs" />
      <Compile Include="Assets\Scripts\Pattern\FriendlyWalker.cs" />
      <Compile Include="Assets\Scripts\Player\CameraFollower.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\SpawnerController.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/Documents/GitHub/CIS-452/Assignment_6/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

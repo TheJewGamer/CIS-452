@@ -6,10 +6,12 @@ public class Character : MonoBehaviour
 {
     protected int health;
     protected float speed;
-    protected int damage;
+    public int damage;
     protected bool friendly;
     public GameObject player;
     private GameObject nearestEnemy;
+    private Sprite normalSprite;
+    private Sprite hitSprite;
 
     private void Start() 
     {
@@ -22,6 +24,10 @@ public class Character : MonoBehaviour
         {
             this.gameObject.tag = "Enemy";
         }
+
+        //get componets
+        normalSprite = this.GetComponent<SpriteRenderer>().sprite;
+        hitSprite = GameObject.Find("hitSprite").GetComponent<SpriteRenderer>().sprite;
     }
 
     private void LateUpdate()
@@ -54,9 +60,16 @@ public class Character : MonoBehaviour
         //dec
         health--;
 
+        //flash
+        StartCoroutine(hitFeedback());
+
         //check
         if(health <= 0)
         {
+            //add special ammo
+            player.GetComponent<PlayerController>().specialAmmo++;
+
+            //kill
             Destroy(this.gameObject);
         }
     }
@@ -101,5 +114,17 @@ public class Character : MonoBehaviour
             //destory this gameObject
             Destroy(this.gameObject);
         }     
+    }
+
+    private IEnumerator hitFeedback()
+    {
+        //change
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = hitSprite;
+
+        //wait 
+        yield return new WaitForSeconds(.05f);
+
+        //revert
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = normalSprite;
     }
 }

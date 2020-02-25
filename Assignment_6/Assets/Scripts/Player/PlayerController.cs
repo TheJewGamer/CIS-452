@@ -23,6 +23,12 @@ public class PlayerController : MonoBehaviour
     public GameObject hitEffect;
     public GameObject muzzelFlash;
     public Text healthText;
+    public Text specialText;
+    public int specialAmmo;
+    public GameObject walkerPrefab;
+    public GameObject runnerPrefab;
+    private GameObject currentSpawn;
+    public CharacterCreator characterCreator;
     
     // Start is called before the first frame update
     void Start()
@@ -30,6 +36,11 @@ public class PlayerController : MonoBehaviour
         //get componets
         rb2d = this.GetComponent<Rigidbody2D>();
         muzzelFlash.SetActive(false);
+
+        //set up
+        specialAmmo = 0;
+        specialText.text = specialAmmo.ToString();
+        healthText.text = health.ToString();
     }
 
     // Update is called once per frame
@@ -66,6 +77,39 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        //spawn friendly walker
+        if(Input.GetKeyDown(KeyCode.Alpha1) == true)
+        {
+            //check
+            if(specialAmmo >= 5)
+            {
+                //spawn friendly enemy
+
+                //dec
+                specialAmmo -= 5;
+
+                //update hud
+                specialText.text = specialAmmo.ToString();
+            }
+        }
+
+        //spawn friendly runner
+        if(Input.GetKeyDown(KeyCode.Alpha2) == true)
+        {
+            //check
+            if(specialAmmo >= 3)
+            {
+                //spawn friendly runner
+                currentSpawn = Instantiate(runnerPrefab, this.transform.position, this.transform.rotation);
+
+                //dec
+                specialAmmo -= 3;
+
+                //update hud 
+                specialText.text = specialAmmo.ToString();
+            }
+        }
     }
 
     //enemy overlapped player
@@ -74,7 +118,7 @@ public class PlayerController : MonoBehaviour
         if(other.tag == "Enemy")
         {
             //get damage and update health
-            //health -= other.GetComponent<BadGuy>().damage;
+            health -= other.GetComponent<Character>().damage;
 
             //destory enemy that hit player
             Destroy(other.gameObject);
@@ -119,5 +163,18 @@ public class PlayerController : MonoBehaviour
 
         //turn off
         muzzelFlash.SetActive(false);
+    }
+
+    public void EnemyKilled()
+    {
+        //add ammo
+        if(specialAmmo < 5)
+        {
+            specialAmmo++;
+        }
+
+        //update hud
+        specialText.text = specialAmmo.ToString();
+
     }
 }

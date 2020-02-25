@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class CharacterCreator : MonoBehaviour
 {
-    public abstract Character CreateCharacter(string allegiance);
+    public abstract GameObject CreateCharacter(string type);
 }
