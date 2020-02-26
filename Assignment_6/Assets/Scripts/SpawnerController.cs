@@ -11,7 +11,7 @@ using UnityEngine;
 public class SpawnerController : MonoBehaviour
 {
     //vars
-    private float spawnDelay = 2f;
+    private float spawnDelay = 1f;
     private List<Transform> spawners = new List<Transform>();
     private GameObject currentCharacterSpawn;
     private string[] enemyTypeArray = new string[]
@@ -20,6 +20,9 @@ public class SpawnerController : MonoBehaviour
         "runner"
     };
     private GameObject player;
+
+    private int maxSpawns = 30;
+    private int currentSpawnCount = 0;
 
     //pattern
     private CharacterCreator characterCreator;
@@ -38,6 +41,15 @@ public class SpawnerController : MonoBehaviour
 
         //loop spawn
         InvokeRepeating("SpawnEnemy", spawnDelay, spawnDelay);
+        InvokeRepeating("SpawnEnemy", spawnDelay, spawnDelay);
+        InvokeRepeating("SpawnEnemy", spawnDelay, spawnDelay);
+
+        //check to see if max spawns has been reached
+        if(maxSpawns == currentSpawnCount)
+        {
+            //stop spawning
+            CancelInvoke();
+        }
     }
 
     private void LateUpdate() 
@@ -49,7 +61,7 @@ public class SpawnerController : MonoBehaviour
             if(player.GetComponent<PlayerController>().specialAmmo >= 3)
             {
                 //dec points
-                player.GetComponent<PlayerController>().specialAmmo -= 3;
+                player.GetComponent<PlayerController>().FriendlySpawned(3);
 
                 characterCreator = new FriendlyCharacter();
 
@@ -72,7 +84,7 @@ public class SpawnerController : MonoBehaviour
             if(player.GetComponent<PlayerController>().specialAmmo >= 5)
             {
                 //dec points
-                player.GetComponent<PlayerController>().specialAmmo -= 5;
+                player.GetComponent<PlayerController>().FriendlySpawned(5);
 
                 characterCreator = new FriendlyCharacter();
 

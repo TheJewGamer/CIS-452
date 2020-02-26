@@ -12,7 +12,7 @@ public class EnemyRunner : Character
     public EnemyRunner()
     {
         this.health = 1;
-        this.speed = 2.5f;
+        this.speed = 6f;
         this.damage = 1;
         this.friendly = false;
     }

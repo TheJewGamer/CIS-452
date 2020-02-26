@@ -18,11 +18,8 @@ public class PlayerController : MonoBehaviour
     public GameObject gameOverMenu;
     public GameObject winMenu;
     public float speed = 4f;
-    private int health = 10;
     private Vector2 direction;
-    public GameObject hitEffect;
     public GameObject muzzelFlash;
-    public Text healthText;
     public Text specialText;
     public int specialAmmo;
     
@@ -36,7 +33,6 @@ public class PlayerController : MonoBehaviour
         //set up
         specialAmmo = 0;
         specialText.text = specialAmmo.ToString();
-        healthText.text = health.ToString();
     }
 
     // Update is called once per frame
@@ -80,39 +76,12 @@ public class PlayerController : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
-            //get damage and update health
-            health -= other.GetComponent<Character>().damage;
+            //stop game
+            Time.timeScale = 0;
 
-            //destory enemy that hit player
-            Destroy(other.gameObject);
-
-            //update health display
-            healthText.text = health.ToString();
-            
-            //flash hit
-            StartCoroutine(hitFlash());
-
-            //check
-            if(health <= 0)
-            {
-                //stop game
-                Time.timeScale = 0;
-
-                //open menu
-                gameOverMenu.SetActive(true);
-            }
+            //open menu
+            gameOverMenu.SetActive(true);
         }
-    }
-
-    //red flash effect
-    private IEnumerator hitFlash()
-    {
-        //enable
-        hitEffect.SetActive(true);
-
-        yield return new WaitForSeconds(.05f);
-
-        hitEffect.SetActive(false);
     }
 
     //muzzle flash
@@ -138,6 +107,14 @@ public class PlayerController : MonoBehaviour
 
         //update hud
         specialText.text = specialAmmo.ToString();
+    }
 
+    public void FriendlySpawned(int cost)
+    {
+        //dec points
+        specialAmmo -= cost;
+
+        //update hud
+        specialText.text = specialAmmo.ToString();
     }
 }

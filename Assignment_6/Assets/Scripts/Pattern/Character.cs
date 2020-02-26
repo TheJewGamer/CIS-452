@@ -23,14 +23,16 @@ public class Character : MonoBehaviour
 
     private void Start() 
     {
-        //set tag
+        //set tag and layer
         if(friendly)
         {
             this.gameObject.tag = "Friendly";
+            this.gameObject.layer = 2;
         }    
         else
         {
             this.gameObject.tag = "Enemy";
+            this.gameObject.layer = 0;
         }
 
         //get componets
@@ -139,4 +141,5 @@ public class Character : MonoBehaviour
         //revert
         this.gameObject.GetComponent<SpriteRenderer>().sprite = normalSprite;
     }
+    
 }
