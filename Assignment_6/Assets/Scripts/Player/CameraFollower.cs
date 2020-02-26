@@ -1,7 +1,7 @@
 ﻿/*
     * Jacob Cohen
     * CameraFollower.cs
-    * Assignment #5
+    * Assignment #6
     * makes the camera follower the player around
 */
 

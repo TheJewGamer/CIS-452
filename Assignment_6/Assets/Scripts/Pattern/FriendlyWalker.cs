@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * FriendlyWalker.cs
+    * Assignment #6
+    * sets the stats for a friendly walker
+*/
+
 public class FriendlyWalker : Character
 {
     //constructor

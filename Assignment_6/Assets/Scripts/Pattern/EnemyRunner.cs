@@ -1,3 +1,11 @@
+/*
+    * Jacob Cohen
+    * EnemyRunner.cs
+    * Assignment #6
+    * sets the stats for the enemy runner
+*/
+
+
 public class EnemyRunner : Character
 {
     //constructor

@@ -25,10 +25,6 @@ public class PlayerController : MonoBehaviour
     public Text healthText;
     public Text specialText;
     public int specialAmmo;
-    public GameObject walkerPrefab;
-    public GameObject runnerPrefab;
-    private GameObject currentSpawn;
-    public CharacterCreator characterCreator;
     
     // Start is called before the first frame update
     void Start()
@@ -73,47 +69,14 @@ public class PlayerController : MonoBehaviour
                 if(hit.collider.CompareTag("Enemy"))
                 {
                     //notify
-                    hit.transform.SendMessageUpwards("Attacked");
+                    hit.transform.gameObject.GetComponent<Character>().Attacked(1);
                 }
-            }
-        }
-
-        //spawn friendly walker
-        if(Input.GetKeyDown(KeyCode.Alpha1) == true)
-        {
-            //check
-            if(specialAmmo >= 5)
-            {
-                //spawn friendly enemy
-
-                //dec
-                specialAmmo -= 5;
-
-                //update hud
-                specialText.text = specialAmmo.ToString();
-            }
-        }
-
-        //spawn friendly runner
-        if(Input.GetKeyDown(KeyCode.Alpha2) == true)
-        {
-            //check
-            if(specialAmmo >= 3)
-            {
-                //spawn friendly runner
-                currentSpawn = Instantiate(runnerPrefab, this.transform.position, this.transform.rotation);
-
-                //dec
-                specialAmmo -= 3;
-
-                //update hud 
-                specialText.text = specialAmmo.ToString();
             }
         }
     }
 
     //enemy overlapped player
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Enemy")
         {

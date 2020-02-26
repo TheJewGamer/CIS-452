@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * EnemyWalker.cs
+    * Assignment #6
+    * sets up the stats for the enemy walker
+*/
+
 public class EnemyWalker : Character
 {
     //constructor

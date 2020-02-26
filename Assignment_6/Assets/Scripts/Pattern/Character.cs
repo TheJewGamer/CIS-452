@@ -1,3 +1,11 @@
+/*
+    * Jacob Cohen
+    * Character.cs
+    * Assignment #6
+    * sets up the character object for the design pattern
+*/
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +15,8 @@ public class Character : MonoBehaviour
     protected int health;
     protected float speed;
     public int damage;
-    protected bool friendly;
-    public GameObject player;
+    public bool friendly = false;
+    private GameObject player;
     private GameObject nearestEnemy;
     private Sprite normalSprite;
     private Sprite hitSprite;
@@ -28,6 +36,8 @@ public class Character : MonoBehaviour
         //get componets
         normalSprite = this.GetComponent<SpriteRenderer>().sprite;
         hitSprite = GameObject.Find("hitSprite").GetComponent<SpriteRenderer>().sprite;
+        player = GameObject.FindWithTag("Player");
+
     }
 
     private void LateUpdate()
@@ -38,12 +48,14 @@ public class Character : MonoBehaviour
             //get nearest enemy
             nearestEnemy = NearestEnemy();
 
-            //move towards enemy
-            this.transform.position = Vector2.MoveTowards(this.transform.position, nearestEnemy.transform.position, speed * Time.deltaTime);
+            if(nearestEnemy != null)
+            {
+                //move towards enemy
+                this.transform.position = Vector2.MoveTowards(this.transform.position, nearestEnemy.transform.position, speed * Time.deltaTime);
 
-            //look at enemy
-            this.transform.right = (nearestEnemy.transform.position - transform.position);
-
+                //look at enemy
+                this.transform.right = (nearestEnemy.transform.position - transform.position);
+            }
         }
         else
         {
@@ -67,7 +79,7 @@ public class Character : MonoBehaviour
         if(health <= 0)
         {
             //add special ammo
-            player.GetComponent<PlayerController>().specialAmmo++;
+            player.GetComponent<PlayerController>().EnemyKilled();
 
             //kill
             Destroy(this.gameObject);
@@ -103,17 +115,17 @@ public class Character : MonoBehaviour
         return nearest;
     }
 
-    private void OnCollisionEnter2D(Collision2D other) 
+    private void OnTriggerEnter2D(Collider2D other) 
     {
         //check
-        if(other.gameObject.tag == "Friendly")
+        if(other.gameObject.tag == "Friendly" && this.gameObject.tag == "Enemy")
         {
             //attacked
-            other.gameObject.GetComponent<Character>().Attacked(damage);
+            this.gameObject.GetComponent<Character>().Attacked(damage);
 
             //destory this gameObject
-            Destroy(this.gameObject);
-        }     
+            Destroy(other.gameObject);
+        } 
     }
 
     private IEnumerator hitFeedback()

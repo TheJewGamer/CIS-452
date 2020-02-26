@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * MainMenuController.cs
+    * Assignment #6
+    * controls the main menu
+*/
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;

@@ -1,5 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+    * Jacob Cohen
+    * FriendlyCharacter.cs
+    * Assignment #6
+    * creates an friendly
+*/
+
 using UnityEngine;
 
 public class FriendlyCharacter : CharacterCreator
@@ -13,11 +18,11 @@ public class FriendlyCharacter : CharacterCreator
         {
             case "runner":
                 //spawn runner
-                prefab = Resources.Load<GameObject>("Runner");
+                prefab = GameObject.Find("Runner");
                 break;
             case "walker":
                 //spawn walker
-                prefab = Resources.Load<GameObject>("Walker");
+                prefab = GameObject.Find("Walker");
                 break;
             default:
                 Debug.Log("there is an issue");

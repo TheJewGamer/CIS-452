@@ -1,3 +1,11 @@
+/*
+    * Jacob Cohen
+    * EnemyCharacter.cs
+    * Assignment #6
+    * creates an enemy
+*/
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,11 +21,11 @@ public class EnemyCharacter : CharacterCreator
         {
             case "runner":
                 //spawn runner
-                prefab = Resources.Load<GameObject>("Runner");
+                prefab = GameObject.Find("Runner");
                 break;
             case "walker":
                 //spawn walker
-                prefab = Resources.Load<GameObject>("Walker");
+                prefab = GameObject.Find("Walker");
                 break;
             default:
                 Debug.Log("there is an issue");
