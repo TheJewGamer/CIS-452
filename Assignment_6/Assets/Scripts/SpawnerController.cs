@@ -11,7 +11,7 @@ using UnityEngine;
 public class SpawnerController : MonoBehaviour
 {
     //vars
-    private float spawnDelay = 1f;
+    private float spawnDelay = 2f;
     private List<Transform> spawners = new List<Transform>();
     private GameObject currentCharacterSpawn;
     private string[] enemyTypeArray = new string[]
@@ -21,8 +21,10 @@ public class SpawnerController : MonoBehaviour
     };
     private GameObject player;
 
-    private int maxSpawns = 30;
+    private int maxSpawns = 15;
     private int currentSpawnCount = 0;
+    public GameObject winMenu;
+    private bool winState;
 
     //pattern
     private CharacterCreator characterCreator;
@@ -32,6 +34,7 @@ public class SpawnerController : MonoBehaviour
     {
         //get player
         player = GameObject.FindGameObjectWithTag("Player");
+        winState = false;
 
         //get spawners
         foreach (GameObject item in GameObject.FindGameObjectsWithTag("Spawner"))
@@ -43,13 +46,6 @@ public class SpawnerController : MonoBehaviour
         InvokeRepeating("SpawnEnemy", spawnDelay, spawnDelay);
         InvokeRepeating("SpawnEnemy", spawnDelay, spawnDelay);
         InvokeRepeating("SpawnEnemy", spawnDelay, spawnDelay);
-
-        //check to see if max spawns has been reached
-        if(maxSpawns == currentSpawnCount)
-        {
-            //stop spawning
-            CancelInvoke();
-        }
     }
 
     private void LateUpdate() 
@@ -75,6 +71,9 @@ public class SpawnerController : MonoBehaviour
 
                 //make friendly
                 currentCharacterSpawn.GetComponent<Character>().friendly = true;
+
+                //set rotation to zero
+                currentCharacterSpawn.transform.rotation = Quaternion.identity;
             }
         }    
 
@@ -98,6 +97,9 @@ public class SpawnerController : MonoBehaviour
 
                 //make friendly
                 currentCharacterSpawn.GetComponent<Character>().friendly = true;
+
+                //set rotation to zero
+                currentCharacterSpawn.transform.rotation = Quaternion.identity;
             }
         }
     }
@@ -129,6 +131,19 @@ public class SpawnerController : MonoBehaviour
             //add runner script
             currentCharacterSpawn.AddComponent<EnemyRunner>();
         }
+
+        //inc
+        currentSpawnCount++;
+
+        //check to see if max spawns has been reached
+        if(maxSpawns == currentSpawnCount)
+        {
+            //stop spawning
+            CancelInvoke();
+
+            //start end game
+            winState = true;
+        }
     }
 
     private void SpawnFriendly()
@@ -136,4 +151,37 @@ public class SpawnerController : MonoBehaviour
         characterCreator = new EnemyCharacter();
     }
 
+    private void Update() 
+    {
+        //var
+        GameObject test = null; 
+
+        if(winState == false)
+        {
+            //break
+            return;
+        }
+
+        try
+        {
+            //get enemy if there is any
+            test = GameObject.FindGameObjectWithTag("Enemy");
+        }
+        catch
+        {
+            // This is bad, but hey it works
+        }
+        
+        
+        //check to see if there are any enemies on the map
+        if(test == null)
+        {
+            //player wins
+            Time.timeScale = 0;
+            winMenu.SetActive(true);
+
+            //done
+            return;
+        }    
+    }
 }

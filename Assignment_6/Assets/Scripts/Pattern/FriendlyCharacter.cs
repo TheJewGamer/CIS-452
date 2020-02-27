@@ -18,11 +18,11 @@ public class FriendlyCharacter : CharacterCreator
         {
             case "runner":
                 //spawn runner
-                prefab = GameObject.Find("Runner");
+                prefab = Resources.Load<GameObject>("Runner");
                 break;
             case "walker":
                 //spawn walker
-                prefab = GameObject.Find("Walker");
+                prefab = Resources.Load<GameObject>("Walker");
                 break;
             default:
                 Debug.Log("there is an issue");

@@ -25,14 +25,20 @@ public class MainMenuController : MonoBehaviour
 
     public void StartPushed()
     {
-        SceneManager.LoadScene("Game");
-    }
-
-    public void HowToPushed()
-    {
         mainMenu.SetActive(false);
         tutMenu.SetActive(true);
     }
+
+    public void YesPushed()
+    {
+        SceneManager.LoadScene("Tut");
+    }
+
+    public void NoPushed()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
 
     public void BackPushed()
     {
