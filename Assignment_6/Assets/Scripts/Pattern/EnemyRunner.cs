@@ -15,7 +15,7 @@ public class EnemyRunner : Character
         //set up stats
         this.health = 2;
         this.speed = 6f;
-        this.damage = 1;
+        this.damage = 3;
         this.friendly = false;
     }
 

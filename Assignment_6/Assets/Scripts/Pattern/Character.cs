@@ -23,6 +23,7 @@ public class Character : MonoBehaviour
 
     private void Start() 
     {
+
         //set tag and layer
         if(friendly)
         {
@@ -39,7 +40,6 @@ public class Character : MonoBehaviour
         normalSprite = this.GetComponent<SpriteRenderer>().sprite;
         hitSprite = GameObject.Find("hitSprite").GetComponent<SpriteRenderer>().sprite;
         player = GameObject.FindWithTag("Player");
-
     }
 
     public void Attacked(int damage)
