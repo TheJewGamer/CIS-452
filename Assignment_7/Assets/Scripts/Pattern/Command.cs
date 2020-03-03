@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface Command
 {
-   void Execute();
-   Transform Undo();
+   void Execute(Transform position);
+   Transform Undo(Transform player);
 }
