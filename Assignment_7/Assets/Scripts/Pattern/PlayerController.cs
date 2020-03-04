@@ -47,14 +47,46 @@ public class PlayerController : MonoBehaviour
 
         //put down teleporter
         if(Input.GetKeyDown(KeyCode.F) == true)
-        {
-            teleporter.Execute(this.gameObject.transform);
+        {  
+            //var
+            GameObject prefab = Resources.Load<GameObject>("teleporter");
+
+            //spawn at players location
+            prefab = Instantiate(prefab, this.gameObject.transform.position, this.gameObject.transform.rotation);
+
+            //debug
+            Debug.Log("placed teleporter");
+
+            //call
+            teleporter.Execute(prefab);
         }
 
         //teleport
         if(Input.GetKeyDown(KeyCode.Space) == true)
         {
-            this.gameObject.transform.position = teleporter.Undo(this.gameObject.transform).position;
+            //var
+            Transform temp;
+
+            //call
+            temp = teleporter.Undo();
+
+            //check
+            if(temp != null)
+            {
+                //teleport
+                this.gameObject.transform.position = temp.position;
+
+                //debug
+                Debug.Log("teleported");
+            }
+            else
+            {
+                //nothing to teleport to
+
+                //debug
+                Debug.Log("No teleporter available");
+            }
+
         }
     }
 }

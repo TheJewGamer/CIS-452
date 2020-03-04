@@ -4,28 +4,43 @@ using System.Collections.Generic;
 
 public class Teleporter : MonoBehaviour, Command
 {
-    public static Stack<Transform> teleporters;
+    public static Stack<GameObject> teleporters;
 
     public Teleporter()
     {
-        teleporters = new Stack<Transform>();
+        teleporters = new Stack<GameObject>();
     }
 
     //put down teleporter
-    public void Execute(Transform player)
+    public void Execute(GameObject input)
     {
         //add to the stack
-        teleporters.Push(player);
+        teleporters.Push(input);
     }
 
     //teleport
-    public Transform Undo(Transform player)
+    public Transform Undo()
     {
         //var
-        Transform location;
+        GameObject temp;
+        Transform location = null;
 
-        //get most recent teleporter
-        location = teleporters.Pop();
+        //check
+        if(teleporters.Count > 0)
+        {
+            //get most recent teleporter
+            temp = teleporters.Pop();
+
+            //get transform
+            location = temp.transform;
+
+            //delete teleporter
+            Destroy(temp);
+        }
+        else
+        {
+            location = null;
+        }
 
         //done
         return location;
