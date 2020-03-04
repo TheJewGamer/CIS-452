@@ -21,14 +21,14 @@ public class PlayerController : MonoBehaviour
     private Vector2 direction;
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         //get componets
         rb2d = this.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         //movement
         movement.x = Input.GetAxis("Horizontal");
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) == true)
         {
             //var
-            Transform temp;
+            GameObject temp;
 
             //call
             temp = teleporter.Undo();
@@ -74,7 +74,10 @@ public class PlayerController : MonoBehaviour
             if(temp != null)
             {
                 //teleport
-                this.gameObject.transform.position = temp.position;
+                this.gameObject.transform.position = temp.transform.position;
+
+                //delete teleporter
+                Destroy(temp);
 
                 //debug
                 Debug.Log("teleported");

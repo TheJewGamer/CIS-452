@@ -5,5 +5,5 @@ using UnityEngine;
 public interface Command
 {
    void Execute(GameObject input);
-   Transform Undo();
+   GameObject Undo();
 }
