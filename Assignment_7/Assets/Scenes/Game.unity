@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 131974459}
   - component: {fileID: 131974458}
   - component: {fileID: 131974462}
+  - component: {fileID: 131974463}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -250,12 +251,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 131974457}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9b521b8c9eced74da9dd754387e05b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 56dbcb82b076dd749b785d86a2a0ad53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverMenu: {fileID: 1862715988}
-  winMenu: {fileID: 1013226815}
-  speed: 4
+  teleporterManager: {fileID: 561495134}
+  gameTimeManger: {fileID: 561495136}
 --- !u!58 &131974459
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -357,6 +357,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &131974463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131974457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c0304b775a30d409715d58af457996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverMenu: {fileID: 1013226815}
+  winMenu: {fileID: 1862715988}
+  speed: 4
 --- !u!1 &177956793
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,6 +660,7 @@ GameObject:
   m_Component:
   - component: {fileID: 561495135}
   - component: {fileID: 561495134}
+  - component: {fileID: 561495136}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -661,10 +677,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 561495133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a843b39493e774748b930e0d15c48464, type: 3}
+  m_Script: {fileID: 11500000, guid: ecae517d331182b44b7bb2b7cf9dc5fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 131974458}
+  player: {fileID: 131974457}
 --- !u!4 &561495135
 Transform:
   m_ObjectHideFlags: 0
@@ -679,6 +695,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &561495136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561495133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 430da6d12f223104686ee6af3e3f2eaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &612672608
 GameObject:
   m_ObjectHideFlags: 0

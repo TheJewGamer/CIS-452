@@ -12,14 +12,16 @@ using System.Collections.Generic;
 public class Teleporter : Command
 {
     private static Stack<GameObject> teleporters;
-    
-    //pattern
-    private PlayerController player;
+    GameObject player;
 
-    public Teleporter(PlayerController input)
+    //pattern
+    private TeleporterManager manager;
+
+    public Teleporter(TeleporterManager input)
     {
-        this.player = input;
+        this.manager = input;
         teleporters = new Stack<GameObject>();
+        player = GameObject.Find("player");
     }
 
     //put down teleporter
@@ -29,7 +31,7 @@ public class Teleporter : Command
         if(teleporters.Count < 3)
         {
             //add to the stack
-            teleporters.Push(player.PlaceTeleporter());
+            teleporters.Push(manager.PlaceTeleporter());
         }
         else
         {
@@ -44,8 +46,12 @@ public class Teleporter : Command
         //check
         if(teleporters.Count > 0)
         {
+            Debug.Log("Teleported to most recent Teleporter");
+
+            player.tag = "Teleporting";
+
             //get most recent teleporter
-            player.gameObject.transform.position = teleporters.Pop().transform.position;
+            player.transform.position = teleporters.Pop().transform.position;
         }
     }
 }

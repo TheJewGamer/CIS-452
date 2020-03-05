@@ -15,7 +15,7 @@ public class WinLoseMenuController : MonoBehaviour
 {
     public void RetryPushed()
     {
-        Time.timeScale = 1;
+        Time.timeScale = 0;
 
         SceneManager.LoadScene("Game");
     }
