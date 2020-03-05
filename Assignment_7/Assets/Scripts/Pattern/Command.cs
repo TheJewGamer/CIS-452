@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface Command
 {
-   void Execute(GameObject input);
-   GameObject Undo();
+   void Execute();
+   void Undo();
 }

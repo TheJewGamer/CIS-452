@@ -1,41 +1,51 @@
+/*
+    * Jacob Cohen
+    * Teleporter.cs
+    * Assignment #7
+    * controls the actual placing and teleporting
+*/
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Teleporter : MonoBehaviour, Command
+public class Teleporter : Command
 {
     private static Stack<GameObject> teleporters;
+    
+    //pattern
+    private PlayerController player;
 
-    public Teleporter()
+    public Teleporter(PlayerController input)
     {
+        this.player = input;
         teleporters = new Stack<GameObject>();
     }
 
     //put down teleporter
-    public void Execute(GameObject input)
+    public void Execute()
     {
-        //add to the stack
-        teleporters.Push(input);
+        //check
+        if(teleporters.Count < 3)
+        {
+            //add to the stack
+            teleporters.Push(player.PlaceTeleporter());
+        }
+        else
+        {
+            //out of teleporters
+        }
+            
     }
 
     //teleport
-    public GameObject Undo()
+    public void Undo()
     {
-        //var
-        GameObject temp = null;
-
         //check
         if(teleporters.Count > 0)
         {
             //get most recent teleporter
-            temp = teleporters.Pop();
+            player.gameObject.transform.position = teleporters.Pop().transform.position;
         }
-        else
-        {
-            temp = null;
-        }
-
-        //done
-        return temp;
     }
 }
