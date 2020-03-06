@@ -53,7 +53,6 @@ public class Teleporter : Command
         //check
         if(teleporters.Count > 0)
         {
-            Debug.Log("Teleported to most recent Teleporter");
 
             player.tag = "Teleporting";
 
