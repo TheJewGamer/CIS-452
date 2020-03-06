@@ -10,7 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class Teleporter : Command 
+public class Teleporter : Command
 {
     private static Stack<GameObject> teleporters;
     private GameObject player;
@@ -53,8 +53,8 @@ public class Teleporter : Command
         //check
         if(teleporters.Count > 0)
         {
-
-            player.tag = "Teleporting";
+            //var
+            GameObject temp;
 
             //inc
             count++;
@@ -62,8 +62,14 @@ public class Teleporter : Command
             //update
             display.text = count.ToString();
 
-            //get most recent teleporter
-            player.transform.position = teleporters.Pop().transform.position;
+            //hold
+            temp = teleporters.Pop();
+
+            //teleport
+            player.transform.position = temp.transform.position;
+
+            //'Delete'
+            temp.SetActive(false);
         }
     }
 }

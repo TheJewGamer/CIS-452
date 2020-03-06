@@ -18,11 +18,22 @@ public class PlayerController : MonoBehaviour
     private Vector2 direction;
     public float speed = 4f;
 
+    private bool up;
+    private bool down;
+    private bool left;
+    private bool right;
+
     private void Start() 
     {
         //get componets
         rb2d = this.GetComponent<Rigidbody2D>();
         Time.timeScale = 1;
+
+        //setup
+        up = false;
+        down = false;
+        left = false;
+        right = true;
     }
 
     // Update is called once per frame
@@ -35,39 +46,62 @@ public class PlayerController : MonoBehaviour
         //flip sprite based on direction
         if(movement.x < 0)
         {
-            //update vars
-            gameObject.tag = "Player";
-            gameObject.layer = 0;
-
             //feedback
             transform.localRotation = Quaternion.Euler(0, 180, 0);
+
+            up = false;
+            down = false;
+            left = true;
+            right = false;
         }
         else if(movement.x > 0)
         {
-            //update vars
-            gameObject.tag = "Player";
-            gameObject.layer = 0;
-
             //feedback
             transform.localRotation = Quaternion.Euler(0, 0, 0);
+
+            up = false;
+            down = false;
+            left = false;
+            right = true;
         }
         else if(movement.y > 0)
         {
-            //update vars
-            gameObject.tag = "Player";
-            gameObject.layer = 0;
-
             //feedback
             transform.localRotation = Quaternion.Euler(0, 0, 90);
+
+            up = true;
+            down = false;
+            left = false;
+            right = false;
         }
         else if(movement.y < 0)
         {
-            //update vars
-            gameObject.tag = "Player";
-            gameObject.layer = 0;
-
-            //feedback
+            //feedback;
             transform.localRotation = Quaternion.Euler(0, 0, -90);
+
+            up = false;
+            down = true;
+            left = false;
+            right = false;
+        }
+        else
+        {
+            if(left)
+            {
+                transform.localRotation = Quaternion.Euler(0, 180, 0);
+            }
+            else if(right)
+            {
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
+            else if(up)
+            {
+                transform.localRotation = Quaternion.Euler(0, 0, 90);
+            }
+            else if(down)
+            {
+                transform.localRotation = Quaternion.Euler(0, 0, -90);
+            }
         }
 
         //actually moving player here
@@ -89,6 +123,11 @@ public class PlayerController : MonoBehaviour
 
                     //call
                     WinCheck();
+                }
+                else if(hit.collider.CompareTag("TutEnemy") == true)
+                {
+                    //kill
+                    hit.collider.gameObject.SendMessage("Attacked");
                 }
             }
         }

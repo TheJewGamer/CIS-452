@@ -54,9 +54,9 @@
      <Compile Include="Assets\Scripts\Pattern\PlayerCommandInputManager.cs" />
      <Compile Include="Assets\Scripts\Pattern\Teleporter.cs" />
      <Compile Include="Assets\Scripts\Pattern\TeleporterManager.cs" />
-     <Compile Include="Assets\Scripts\Player\CameraFollower.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\teleporterController.cs" />
+     <Compile Include="Assets\Scripts\TutEnemy.cs" />
+     <Compile Include="Assets\Scripts\TutManager.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/Documents/GitHub/CIS-452/Assignment_7/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

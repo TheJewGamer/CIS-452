@@ -19,10 +19,13 @@ public class Enemy : MonoBehaviour
     public Gradient redColor;
     public Gradient greenColor;
     private float distance;
-    public bool lookingLeft;
     public float eyeSightDistance = 5;
     private float waitTime;
     private float startWaitTime = 3;
+    public GameObject point1;
+    public GameObject point2;
+    private GameObject currentPoint;
+    private bool moving;
 
     private void Start()
     {
@@ -31,30 +34,31 @@ public class Enemy : MonoBehaviour
         distance = eyeSightDistance;
         seePlayer = false;
         lineOfSight = GetComponentInChildren<LineRenderer>();
+        currentPoint = point1;
     }
 
     private void Update()
     {
-        //check
-        if(!seePlayer)
+        //move to guard point
+        this.transform.position = Vector2.MoveTowards(this.transform.position, currentPoint.transform.position, speed * Time.deltaTime);
+
+        //check to see if at guard point
+        if(Vector2.Distance(this.transform.position, currentPoint.transform.position) < .2f)
         {
+            //check to see if done waiting
             if(waitTime <= 0)
             {
                 //update var
                 waitTime = startWaitTime;
 
                 //move to next location
-                if(lookingLeft)
+                if(currentPoint == point1)
                 {
-                    //look right
-                    transform.localRotation = Quaternion.Euler(0, 0, 0);
-                    lookingLeft = false;
+                    currentPoint = point2;
                 }
                 else
                 {
-                    //look left
-                    transform.localRotation = Quaternion.Euler(0, 180, 0);
-                    lookingLeft = true;
+                    currentPoint = point1;
                 }
             }
             else
@@ -62,6 +66,11 @@ public class Enemy : MonoBehaviour
                 //wait
                 waitTime -= Time.deltaTime;
             }
+        }
+        else
+        {
+            //look at point
+            this.transform.right = currentPoint.transform.position - transform.position;
         }
 
         //var
@@ -89,6 +98,7 @@ public class Enemy : MonoBehaviour
         {
             lineOfSight.SetPosition(1, transform.position + transform.right * distance);
             seePlayer = false;
+            lineOfSight.colorGradient = greenColor;
         }
 
         //line
