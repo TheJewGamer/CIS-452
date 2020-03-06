@@ -1,7 +1,7 @@
 ﻿/*
     * Jacob Cohen
     * MainMenuController.cs
-    * Assignment #6
+    * Assignment #7
     * controls the main menu
 */
 

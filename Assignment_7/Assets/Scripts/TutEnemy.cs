@@ -1,6 +1,6 @@
 ﻿/*
     * Jacob Cohen
-    * Enemy.cs
+    * TutEnemy.cs
     * Assignment #7
     * Controls the tutorial enemy
 */
