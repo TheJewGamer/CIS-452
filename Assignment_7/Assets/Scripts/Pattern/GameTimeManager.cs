@@ -16,8 +16,6 @@ public class GameTimeManager : MonoBehaviour
     {
         Time.timeScale = timeHolder = Time.timeScale -.1f;
 
-        Debug.Log("Slowed Time down: " + Time.timeScale);
-
         return timeHolder;
     }
 }

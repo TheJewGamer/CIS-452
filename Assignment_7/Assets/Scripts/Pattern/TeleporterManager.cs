@@ -12,9 +12,7 @@ public class TeleporterManager : MonoBehaviour
     public GameObject player;
 
     public GameObject PlaceTeleporter()
-    {   
-        Debug.Log("Placed Teleporter");
-
+    {
         //var
         GameObject prefab = Resources.Load<GameObject>("teleporter");
 
