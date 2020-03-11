@@ -6,9 +6,11 @@ public abstract class Customer : MonoBehaviour
     //variables
     private GameObject[] tables;
     private GameObject seatToMoveTo;
-    private bool seated;
+    public bool seated;
     private bool ordered;
     private float speed = 2f;
+    public bool served;
+    private Transform spawn;
 
     private void Start() 
     {
@@ -40,7 +42,7 @@ public abstract class Customer : MonoBehaviour
         else
         {
             //look at Table
-            this.transform.right = seatToMoveTo.transform.GetChild(1).gameObject.transform.position - transform.position;
+            this.transform.right = seatToMoveTo.transform.GetChild(0).gameObject.transform.position - transform.position;
 
             //update var
             seated = true;
@@ -53,9 +55,13 @@ public abstract class Customer : MonoBehaviour
             {
                 Order();
             }
-            else
+            else if(!served)
             {
                 Patience();
+            }
+            else
+            {
+                Eat();
             }
         }
     }
@@ -82,10 +88,15 @@ public abstract class Customer : MonoBehaviour
 
     public void Leave()
     {
+        //seat is empty
+        seatToMoveTo.GetComponent<TableController>().inUse = false;
+
+        //leave
         
     }
 
     public abstract void Patience();
 
-    public abstract void Order(); 
+    public abstract void Order();
+    public abstract void Eat();
 }

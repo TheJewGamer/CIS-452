@@ -5,7 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Chair
-  - Customer
+  - blueFood
+  - greenFood
+  - pinkFood
+  - wantsBlue
+  - wantsGreen
+  - wantsPink
   layers:
   - Default
   - TransparentFX

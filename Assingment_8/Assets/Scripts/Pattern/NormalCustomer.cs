@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NormalCustomer : Customer
 {
-    private float waitTime = 5f;
+    private float waitTime = 10f;
     private float currentWaitTime;
 
     private void Start() 
@@ -14,8 +14,8 @@ public class NormalCustomer : Customer
 
     public override void Order()
     {
-        //get random food option
-
+        //get 1 random food option
+        
         
     }
 
@@ -31,5 +31,10 @@ public class NormalCustomer : Customer
             //wait
             waitTime -= Time.deltaTime;
         }
+    }
+
+    public override void Eat()
+    {
+        
     }
 }

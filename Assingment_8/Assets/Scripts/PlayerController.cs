@@ -11,8 +11,6 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour 
 {
      //variables
-    public GameObject gameOverMenu;
-    public GameObject winMenu;
     private Vector2  movement;
     private Rigidbody2D rb2d;
     private Vector2 direction;
@@ -23,17 +21,31 @@ public class PlayerController : MonoBehaviour
     private bool left;
     private bool right;
 
+    //foods
+    private bool carringBlue;
+    private bool carringGreen;
+    private bool carringPink;
+
+    private GameObject blueFood;
+    private GameObject greenFood;
+    private GameObject pinkFood;
+
     private void Start() 
     {
         //get componets
         rb2d = this.GetComponent<Rigidbody2D>();
-        Time.timeScale = 1;
-
+        blueFood = this.gameObject.transform.GetChild(0).gameObject;
+        greenFood = this.gameObject.transform.GetChild(1).gameObject;
+        pinkFood = this.gameObject.transform.GetChild(2).gameObject;
+        
         //setup
         up = false;
         down = false;
         left = false;
         right = true;
+        carringBlue = false;
+        carringGreen = false;
+        carringPink = false;
     }
 
     // Update is called once per frame
@@ -108,68 +120,72 @@ public class PlayerController : MonoBehaviour
         rb2d.MovePosition(rb2d.position + movement * speed * Time.fixedDeltaTime);
 
         //attack
-        if(Input.GetKeyDown(KeyCode.V) == true)
+        if(Input.GetKeyDown(KeyCode.Space) == true)
         {
             //raytrace
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1.5f);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, .5f);
 
             //check
             if(hit.collider != null)
             {
-                if(hit.collider.CompareTag("Enemy") == true)
+                if(hit.collider.CompareTag("greenFood") == true)
                 {
-                    //kill
-                    DestroyImmediate(hit.collider.gameObject);
+                    greenFood.SetActive(true);
+                    pinkFood.SetActive(false);
+                    blueFood.SetActive(false);
 
-                    //call
-                    WinCheck();
+                    carringGreen = true;
+                    carringPink = false;
+                    carringBlue = false;
                 }
-                else if(hit.collider.CompareTag("TutEnemy") == true)
+                else if(hit.collider.CompareTag("blueFood") == true)
                 {
-                    //kill
-                    hit.collider.gameObject.SendMessage("Attacked");
+                    greenFood.SetActive(false);
+                    pinkFood.SetActive(false);
+                    blueFood.SetActive(true);
+
+                    carringGreen = true;
+                    carringPink = false;
+                    carringBlue = true;
+                }
+                else if(hit.collider.CompareTag("pinkFood") == true)
+                {
+                    greenFood.SetActive(true);
+                    pinkFood.SetActive(true);
+                    blueFood.SetActive(false);
+
+                    carringGreen = true;
+                    carringPink = true;
+                    carringBlue = false;
+                }
+                else if(hit.collider.CompareTag("wantsBlue") && carringBlue)
+                {
+                    //notify customer
+                    hit.transform.gameObject.GetComponent<Customer>().served = true;
+
+                    //update player
+                    blueFood.SetActive(false);
+                    carringBlue = false;
+                }
+                else if(hit.collider.CompareTag("wantsGreen") && carringGreen)
+                {
+                    //notify customer
+                    hit.transform.gameObject.GetComponent<Customer>().served = true;
+
+                    //update player
+                    greenFood.SetActive(false);
+                    carringGreen = false;
+                }
+                else if(hit.collider.CompareTag("wantsPink") && carringPink)
+                {
+                    //notify customer
+                    hit.transform.gameObject.GetComponent<Customer>().served = true;
+
+                    //update player
+                    pinkFood.SetActive(false);
+                    carringPink = false;
                 }
             }
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D other) 
-    {
-        //check
-        if(other.gameObject.CompareTag("Enemy") == true)
-        {
-            //stop game
-            Time.timeScale = 0;
-
-            //open menu
-            gameOverMenu.SetActive(true);
-        }    
-    }
-
-    public void WinCheck()
-    {
-        //var
-        GameObject test = null; 
-
-        try
-        {
-            //get enemy if there is any
-            test = GameObject.FindGameObjectWithTag("Enemy");
-        }
-        catch
-        {
-            // This is bad, but hey it works
-        }
-        
-        //check to see if there are any enemies on the map
-        if(test == null)
-        {
-            //player wins
-            Time.timeScale = 0;
-            winMenu.SetActive(true);
-
-            //done
-            return;
-        } 
     }
 }
