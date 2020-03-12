@@ -5,64 +5,65 @@ public abstract class Customer : MonoBehaviour
 {
     //variables
     private GameObject[] tables;
-    private GameObject seatToMoveTo;
+    protected string[] foodOptions = { "wantsBlue", "wantsGreen", "wantsPink"};
+    protected GameObject seatToMoveTo;
     public bool seated;
     private bool ordered;
     private float speed = 2f;
     public bool served;
+    protected bool leaving;
     private Transform spawn;
+    private GameObject exit;
 
-    private void Start() 
-    {
+    protected void CustomerStart() 
+    {   
         //get tables
         tables = GameObject.FindGameObjectsWithTag("Chair");
-        seatToMoveTo = this.gameObject;
+        seatToMoveTo = null;
 
         //set vars
         seated = false;
         ordered = false;
+        served = false;
+        leaving = false;
 
+        //get componets
+        exit = GameObject.Find("exit");
+
+        //call
         Move();
     }
 
     private void Update() 
     {
-        //check to see if at guard point
-        if(Vector2.Distance(this.transform.position, seatToMoveTo.transform.position) < .2f)
+        if(seatToMoveTo != null && Vector2.Distance(this.gameObject.transform.position, seatToMoveTo.transform.position) > .2f && !leaving)
         {
             //move towards table
-            this.transform.position = Vector2.MoveTowards(this.transform.position, seatToMoveTo.transform.position, speed * Time.deltaTime);
+            this.gameObject.transform.position = Vector2.MoveTowards(this.gameObject.transform.position, seatToMoveTo.transform.position, speed * Time.deltaTime);
 
             //look at chair
-            this.transform.right = seatToMoveTo.transform.position - transform.position;
-
-            //update var
-            seated = false;
+            this.gameObject.transform.right = seatToMoveTo.transform.position - transform.position;
         }
-        else
+        else if(seatToMoveTo != null)
         {
-            //look at Table
-            this.transform.right = seatToMoveTo.transform.GetChild(0).gameObject.transform.position - transform.position;
-
-            //update var
             seated = true;
         }
 
         //check
         if(seated)
         {
+            //check
             if(!ordered)
             {
+                //order food
+                ordered = true;
                 Order();
             }
-            else if(!served)
-            {
-                Patience();
-            }
-            else
-            {
-                Eat();
-            }
+        }
+
+        if(leaving)
+        {
+            Leave();
         }
     }
 
@@ -72,7 +73,7 @@ public abstract class Customer : MonoBehaviour
         foreach(GameObject input in tables)
         {
             //check
-            if(input.GetComponent<TableController>().inUse == false)
+            if(input.gameObject.GetComponent<TableController>().inUse == false)
             {
                 //in use
                 input.GetComponent<TableController>().inUse = true;
@@ -81,22 +82,43 @@ public abstract class Customer : MonoBehaviour
                 seatToMoveTo = input;
 
                 //done
-                break;
+                return;
             }
         }
+            //look at Table
+            this.gameObject.transform.right = seatToMoveTo.transform.GetChild(0).gameObject.transform.position - transform.position;
     }
 
     public void Leave()
     {
+        Debug.Log("Leave");
+
         //seat is empty
         seatToMoveTo.GetComponent<TableController>().inUse = false;
+        seatToMoveTo.transform.GetChild(1).gameObject.SetActive(false);
 
-        //leave
+        //remove tag
+        this.gameObject.tag = "Customer";
+
+        //hide all food options
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        this.gameObject.transform.GetChild(2).gameObject.SetActive(false);
+
+        //move towards exit
+        this.transform.position = Vector2.MoveTowards(this.transform.position, exit.transform.position, speed * Time.deltaTime);
+
+        //look at exit
+        this.transform.right = exit.transform.position - transform.position;
         
+        if(Vector2.Distance(this.gameObject.transform.position, exit.transform.position) < .2f)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public abstract void Patience();
-
+    public abstract void Served();
     public abstract void Order();
     public abstract void Eat();
 }

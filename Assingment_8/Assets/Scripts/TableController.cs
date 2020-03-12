@@ -13,7 +13,7 @@ public class TableController : MonoBehaviour
     {
         //set up
         inUse = false;
-        food = this.gameObject.transform.GetChild(1).gameObject;
-        table = this.gameObject.transform.GetChild(2).gameObject;
+        food = this.gameObject.transform.GetChild(0).gameObject;
+        table = this.gameObject.transform.GetChild(1).gameObject;
     }
 }

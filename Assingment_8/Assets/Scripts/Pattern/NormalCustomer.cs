@@ -4,37 +4,104 @@ using UnityEngine;
 
 public class NormalCustomer : Customer
 {
-    private float waitTime = 10f;
+    //variables
+    private float waitTime = 20f;
     private float currentWaitTime;
+    private string firstOrder;
+    private int firstOrderIndex;
+    private int secondOrderIndex;
+    private string secondOrder;
 
     private void Start() 
     {
-        currentWaitTime = waitTime;     
+        //set vars
+        currentWaitTime = waitTime;
+
+        //get 2 random food option
+        firstOrderIndex = Random.Range(0,foodOptions.Length);
+        firstOrder = foodOptions[firstOrderIndex];
+
+        secondOrderIndex = Random.Range(0,foodOptions.Length);
+        secondOrder = foodOptions[secondOrderIndex];
+
+        //call
+        CustomerStart();
     }
 
     public override void Order()
     {
-        //get 1 random food option
-        
+        //check
+        if(!served)
+        {
+            //feedback
+            this.gameObject.tag = firstOrder;
+            this.gameObject.transform.GetChild(firstOrderIndex).gameObject.SetActive(true);        
+        }
+        //check
+        else if(served)
+        {
+            //feedback
+            this.gameObject.tag = "Customer";
+            this.gameObject.transform.GetChild(secondOrderIndex).gameObject.SetActive(false);
+
+            //call
+            Eat();
+        }
         
     }
 
-    public override void Patience()
+    private void LateUpdate() 
     {
-        if(waitTime <= 0)
+        //check
+        if(!this.served && this.seated)
         {
-            //leave
-            Leave();
-        }
-        else
-        {
-            //wait
-            waitTime -= Time.deltaTime;
+            //check
+            if(waitTime <= 0)
+            {
+                 //wait
+                waitTime -= Time.deltaTime;
+            }
+            else
+            {
+                //call
+                Patience();
+            }
         }
     }
 
     public override void Eat()
     {
-        
+        //call
+        Debug.Log("eatting");
+        StartCoroutine(EatTime());
+    }
+
+    public override void Patience()
+    {
+        //call
+        Leave();
+    }
+
+    public override void Served()
+    {
+        //check
+        if (!served)
+        {
+            //update var and call
+            Debug.Log("served");
+            served = true;
+            Order();
+            return;
+        }
+    }
+
+    private IEnumerator EatTime()
+    {
+        //wait
+        yield return new WaitForSeconds(5);
+
+        //done leave
+        Debug.Log("leaving");
+        Leave();
     }
 }

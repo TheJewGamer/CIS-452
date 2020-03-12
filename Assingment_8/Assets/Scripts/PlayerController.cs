@@ -150,18 +150,18 @@ public class PlayerController : MonoBehaviour
                 }
                 else if(hit.collider.CompareTag("pinkFood") == true)
                 {
-                    greenFood.SetActive(true);
+                    greenFood.SetActive(false);
                     pinkFood.SetActive(true);
                     blueFood.SetActive(false);
 
-                    carringGreen = true;
+                    carringGreen = false;
                     carringPink = true;
                     carringBlue = false;
                 }
                 else if(hit.collider.CompareTag("wantsBlue") && carringBlue)
                 {
                     //notify customer
-                    hit.transform.gameObject.GetComponent<Customer>().served = true;
+                    hit.collider.gameObject.SendMessage("Served");
 
                     //update player
                     blueFood.SetActive(false);
@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
                 else if(hit.collider.CompareTag("wantsGreen") && carringGreen)
                 {
                     //notify customer
-                    hit.transform.gameObject.GetComponent<Customer>().served = true;
+                    hit.collider.gameObject.SendMessage("Served");
 
                     //update player
                     greenFood.SetActive(false);
@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour
                 else if(hit.collider.CompareTag("wantsPink") && carringPink)
                 {
                     //notify customer
-                    hit.transform.gameObject.GetComponent<Customer>().served = true;
+                    hit.collider.gameObject.SendMessage("Served");
 
                     //update player
                     pinkFood.SetActive(false);

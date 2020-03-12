@@ -11,6 +11,7 @@ TagManager:
   - wantsBlue
   - wantsGreen
   - wantsPink
+  - Customer
   layers:
   - Default
   - TransparentFX
