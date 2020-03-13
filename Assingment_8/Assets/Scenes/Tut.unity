@@ -1196,7 +1196,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: cb7185ac0f1b8e4499c2ac6deaeea4b6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2120,8 +2120,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Got Job now push the spacebar when near one of the colored circles in the
-    back, these are the dish options.
+  m_Text: Got Job now push the spacebar when facing one of the colored circles in
+    the back, these are the dish options.
 --- !u!222 &1707511466
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2337,8 +2337,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You can tell what dish he wants by looking inside him. When near him with
-    the correct dish push the spacebar to give it to him.
+  m_Text: You can tell what dish he wants by looking inside him. When spacing him
+    with the correct dish push the spacebar to give it to him.
 --- !u!222 &1993021798
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2485,7 +2485,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Good job he is now eating his meal. Just remember some customers might
-    want to dishes and if you make customers wait long enough they will leave. Now
+    want two dishes and if you make customers wait long enough they will leave. Now
     run the dinner without letting too many customers leave.
 --- !u!222 &2102495256
 CanvasRenderer:

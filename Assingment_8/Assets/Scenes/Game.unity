@@ -564,6 +564,7 @@ GameObject:
   - component: {fileID: 273459371}
   - component: {fileID: 273459370}
   - component: {fileID: 273459372}
+  - component: {fileID: 273459373}
   m_Layer: 0
   m_Name: greenFoodPickUp
   m_TagString: greenFood
@@ -651,6 +652,32 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.0011403561}
   serializedVersion: 2
   m_Radius: 0.20730805
+--- !u!61 &273459373
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273459369}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.79, y: 0.79}
+    newSize: {x: 0.79, y: 0.79}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79, y: 0.41457367}
+  m_EdgeRadius: 0
 --- !u!1 &280985885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,6 +1875,7 @@ GameObject:
   - component: {fileID: 994129078}
   - component: {fileID: 994129077}
   - component: {fileID: 994129079}
+  - component: {fileID: 994129080}
   m_Layer: 0
   m_Name: blueFoodPickUp
   m_TagString: blueFood
@@ -1893,7 +1921,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: cb7185ac0f1b8e4499c2ac6deaeea4b6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1935,6 +1963,32 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.20844841
+--- !u!61 &994129080
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994129076}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.79, y: 0.79}
+    newSize: {x: 0.79, y: 0.79}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79, y: 0.41457367}
+  m_EdgeRadius: 0
 --- !u!1001 &1124248338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2194,6 +2248,7 @@ GameObject:
   - component: {fileID: 1133498261}
   - component: {fileID: 1133498260}
   - component: {fileID: 1133498262}
+  - component: {fileID: 1133498263}
   m_Layer: 0
   m_Name: pinkFoodPickUp
   m_TagString: pinkFood
@@ -2281,6 +2336,32 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.018655062}
   serializedVersion: 2
   m_Radius: 0.20844865
+--- !u!61 &1133498263
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133498259}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.79, y: 0.79}
+    newSize: {x: 0.79, y: 0.79}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79, y: 0.41457367}
+  m_EdgeRadius: 0
 --- !u!1 &1143424929
 GameObject:
   m_ObjectHideFlags: 0
