@@ -1,3 +1,10 @@
+/*
+    * Jacob Cohen
+    * Customer.cs
+    * Assignment #8
+    * main class for the pattern
+*/
+
 using UnityEngine;
 using System.Collections;
 
@@ -14,6 +21,7 @@ public abstract class Customer : MonoBehaviour
     protected bool leaving;
     private Transform spawn;
     private GameObject exit;
+    protected CustomerSpawner manager;
 
     protected void CustomerStart() 
     {   
@@ -27,8 +35,9 @@ public abstract class Customer : MonoBehaviour
         served = false;
         leaving = false;
 
-        //get componets
+        //get items
         exit = GameObject.Find("exit");
+        manager = GameObject.Find("Scripts").GetComponent<CustomerSpawner>();
 
         //call
         Move();
@@ -91,8 +100,6 @@ public abstract class Customer : MonoBehaviour
 
     public void Leave()
     {
-        Debug.Log("Leave");
-
         //seat is empty
         seatToMoveTo.GetComponent<TableController>().inUse = false;
         seatToMoveTo.transform.GetChild(1).gameObject.SetActive(false);

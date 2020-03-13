@@ -1,7 +1,7 @@
 /*
     * Jacob Cohen
     * PlayerController.cs
-    * Assignment #7
+    * Assignment #8
     * controls player movement
 */
 

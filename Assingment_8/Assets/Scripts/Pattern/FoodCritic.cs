@@ -1,10 +1,18 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * FoodCritic.cs
+    * Assignment #8
+    * controls the food critic
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FoodCritic : Customer
 {
-    private float waitTime = 20f;
+    //variables
+    private float waitTime = 30f;
     private float currentWaitTime;
     private string firstOrder;
     private int firstOrderIndex;
@@ -33,11 +41,9 @@ public class FoodCritic : Customer
 
     public override void Order()
     {
-        Debug.Log("ordered");
         //check
         if(!firstServed)
         {
-            Debug.Log("order first");
             this.gameObject.tag = firstOrder;
             this.gameObject.transform.GetChild(firstOrderIndex).gameObject.SetActive(true);        
         }
@@ -67,14 +73,14 @@ public class FoodCritic : Customer
         if(!this.served && this.seated)
         {
             //check
-            if(waitTime <= 0)
+            if(currentWaitTime >= 0)
             {
                 //wait
-                waitTime -= Time.deltaTime;
+                currentWaitTime -= Time.deltaTime;
             }
             else
             {
-                //Patience();
+                Patience();
             }
         }
     }
@@ -88,22 +94,21 @@ public class FoodCritic : Customer
 
     public override void Patience()
     {
-        //call
-        Leave();
+        manager.customersLeft++;
+        manager.StateCheck();
+        this.leaving = true;
     }
 
     public override void Served()
     {
         if (!firstServed)
         {
-            Debug.Log("First served");
             firstServed = true;
             Order();
             return;
         }
         else if (firstServed && !secondServed)
         {
-            Debug.Log("Second served");
             secondServed = true;
             Order();
         }
@@ -113,8 +118,10 @@ public class FoodCritic : Customer
     {
         yield return new WaitForSeconds(5);
 
+        manager.customersServed++;
+        manager.StateCheck();
+
         //done
-        Debug.Log("leaving");
-        Leave();
+        this.leaving = true;
     }
 }

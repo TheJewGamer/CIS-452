@@ -1,7 +1,7 @@
 ﻿/*
     * Jacob Cohen
     * WinLoseMenuController.cs
-    * Assignment #7
+    * Assignment #8
     * controls the win and lose menu
 */
 

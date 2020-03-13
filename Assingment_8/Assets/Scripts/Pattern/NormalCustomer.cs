@@ -1,28 +1,32 @@
+/*
+    * Jacob Cohen
+    * NormalCustomer.cs
+    * Assignment #8
+    * controls the normal customer
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NormalCustomer : Customer
 {
-    //variables
-    private float waitTime = 20f;
+   //variables
+    private float waitTime = 60f;
     private float currentWaitTime;
     private string firstOrder;
     private int firstOrderIndex;
-    private int secondOrderIndex;
-    private string secondOrder;
+    public bool firstServed;
 
     private void Start() 
     {
         //set vars
-        currentWaitTime = waitTime;
+        currentWaitTime = waitTime;   
+        firstServed = false;
 
         //get 2 random food option
         firstOrderIndex = Random.Range(0,foodOptions.Length);
         firstOrder = foodOptions[firstOrderIndex];
-
-        secondOrderIndex = Random.Range(0,foodOptions.Length);
-        secondOrder = foodOptions[secondOrderIndex];
 
         //call
         CustomerStart();
@@ -31,24 +35,20 @@ public class NormalCustomer : Customer
     public override void Order()
     {
         //check
-        if(!served)
+        if(!firstServed)
         {
-            //feedback
             this.gameObject.tag = firstOrder;
             this.gameObject.transform.GetChild(firstOrderIndex).gameObject.SetActive(true);        
         }
-        //check
-        else if(served)
+        else if(firstServed)
         {
-            //feedback
             this.gameObject.tag = "Customer";
-            this.gameObject.transform.GetChild(secondOrderIndex).gameObject.SetActive(false);
-
-            //call
+            this.gameObject.transform.GetChild(firstOrderIndex).gameObject.SetActive(false);
+            this.served = true;
             Eat();
         }
-        
     }
+
 
     private void LateUpdate() 
     {
@@ -56,14 +56,13 @@ public class NormalCustomer : Customer
         if(!this.served && this.seated)
         {
             //check
-            if(waitTime <= 0)
+            if(currentWaitTime >= 0)
             {
-                 //wait
-                waitTime -= Time.deltaTime;
+                //wait
+                currentWaitTime -= Time.deltaTime;
             }
             else
             {
-                //call
                 Patience();
             }
         }
@@ -72,36 +71,41 @@ public class NormalCustomer : Customer
     public override void Eat()
     {
         //call
-        Debug.Log("eatting");
+        seatToMoveTo.transform.GetChild(1).gameObject.SetActive(true);
         StartCoroutine(EatTime());
     }
 
     public override void Patience()
     {
-        //call
-        Leave();
+        //served
+        manager.customersLeft++;
+        manager.StateCheck();
+        this.leaving = true;
     }
 
     public override void Served()
     {
-        //check
-        if (!served)
+        if (!firstServed)
         {
-            //update var and call
-            Debug.Log("served");
-            served = true;
+            firstServed = true;
             Order();
             return;
+        }
+        else if (firstServed)
+        {
+            Order();
         }
     }
 
     private IEnumerator EatTime()
     {
-        //wait
         yield return new WaitForSeconds(5);
 
-        //done leave
-        Debug.Log("leaving");
-        Leave();
+        //served
+        manager.customersServed++;
+        manager.StateCheck();
+
+        //done
+        this.leaving = true;
     }
 }
