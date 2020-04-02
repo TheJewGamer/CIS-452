@@ -37,11 +37,13 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scenes\Scripts\MenuController.cs" />
-     <Compile Include="Assets\Scenes\Scripts\Pattern\InjuredState.cs" />
-     <Compile Include="Assets\Scenes\Scripts\Pattern\NormalState.cs" />
-     <Compile Include="Assets\Scenes\Scripts\Pattern\PlayerController.cs" />
-     <Compile Include="Assets\Scenes\Scripts\Pattern\PlayerStates.cs" />
+     <Compile Include="Assets\Scenes\Scripts\Pattern\FollowState.cs" />
+     <Compile Include="Assets\Scenes\Scripts\Pattern\FollowerController.cs" />
+     <Compile Include="Assets\Scenes\Scripts\Pattern\FollowerStates.cs" />
+     <Compile Include="Assets\Scenes\Scripts\Pattern\IdleState.cs" />
+     <Compile Include="Assets\Scenes\Scripts\Pattern\ScaredState.cs" />
      <Compile Include="Assets\Scenes\Scripts\Pattern\TiredState.cs" />
+     <Compile Include="Assets\Scenes\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scenes\Scripts\WinLoseMenuController.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.4f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

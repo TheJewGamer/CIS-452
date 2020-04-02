@@ -1,26 +1,47 @@
 using UnityEngine;
 
-public class TiredState : PlayerStates 
+public class TiredState : FollowerStates 
 {
     //variable
-    private PlayerController controller;
+    private FollowerController controller;
+    private GameObject player;
 
-    public TiredState(PlayerController input)
+    private void Awake()
     {
-        controller = input;
+        //get player script
+        controller = gameObject.GetComponent<FollowerController>();
+        player = controller.playerHolder;
     }
 
-    public void RecoverFromInjury()
+    public override void StartFollowing()
     {
-        Debug.Log("Wrong state");
+        Debug.Log("Currently tired");
     }
 
-    public void RecoverFromTried()
+    public override void StopFollowing()
     {
-        //set stats to normal
+        Debug.Log("Not following");
     }
-    public void Normal()
+
+    public override void CalmDown()
     {
-        Debug.Log("Wrong state");
+        Debug.Log("Not scared");
+    }
+    public override void Fed()
+    {
+        Debug.Log("Not tired anymore");
+
+        controller.target = this.gameObject.transform;
+
+        //return to idle state
+        controller.currentState = controller.idleState;
+    }
+
+    public override void Scared()
+    {
+        //select random target and run toward it
+
+        //go to scared state
+        controller.currentState = controller.scaredState;
     }
 }
