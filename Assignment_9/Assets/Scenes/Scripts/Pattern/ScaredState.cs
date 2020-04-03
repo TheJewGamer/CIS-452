@@ -8,8 +8,10 @@ public class ScaredState : FollowerStates
 
     private void Awake()
     {
+        //set up
         controller = gameObject.GetComponent<FollowerController>();
         player = controller.playerHolder;
+        controller.scared = true;
     }
 
     public override void StartFollowing()
@@ -26,7 +28,8 @@ public class ScaredState : FollowerStates
     {
         Debug.Log("Told to calm down");
 
-        controller.target = this.gameObject.transform;
+        //update var
+        controller.scared = false;
 
         //return to idle state
         controller.currentState = controller.idleState;
@@ -38,9 +41,6 @@ public class ScaredState : FollowerStates
 
     public override void Scared()
     {
-        //select random target and run toward it
-
-        //go to scared state
-        controller.currentState = controller.scaredState;
+        Debug.Log("Already Scared");
     }
 }

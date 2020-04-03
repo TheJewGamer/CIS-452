@@ -36,6 +36,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scenes\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scenes\Scripts\MenuController.cs" />
      <Compile Include="Assets\Scenes\Scripts\Pattern\FollowState.cs" />
      <Compile Include="Assets\Scenes\Scripts\Pattern\FollowerController.cs" />

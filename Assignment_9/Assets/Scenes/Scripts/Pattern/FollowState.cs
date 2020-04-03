@@ -44,7 +44,7 @@ public class FollowState : FollowerStates
 
     public override void Scared()
     {
-        //select random target and run toward it
+        controller.target = this.gameObject.transform;
 
         //go to scared state
         controller.currentState = controller.scaredState;

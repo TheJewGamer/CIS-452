@@ -4,7 +4,9 @@ public class FollowerController : MonoBehaviour
 {
     //variables
     public Transform target = null;
+    public bool scared = false;
     public GameObject playerHolder;
+    public GameObject[] enemies;
     private float speed = .5f;
 
     //pattern
@@ -23,6 +25,7 @@ public class FollowerController : MonoBehaviour
         tiredState = gameObject.AddComponent<TiredState>();
         followState = gameObject.AddComponent<FollowState>();
         currentState = idleState;
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
     private void LateUpdate() 
@@ -76,5 +79,11 @@ public class FollowerController : MonoBehaviour
             //tell to not be tired
             currentState.Fed();
         }
+    }
+
+    public void NearEnemy()
+    {
+        //tell to be scared
+        currentState.Scared();
     }
 }
