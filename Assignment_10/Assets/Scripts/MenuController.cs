@@ -5,7 +5,6 @@
     * controls the main menu
 */
 
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
