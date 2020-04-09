@@ -39,12 +39,14 @@
      <Compile Include="Assets\Scripts\ArrowController.cs" />
      <Compile Include="Assets\Scripts\CameraFollower.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
-     <Compile Include="Assets\Scripts\MenuController.cs" />
+     <Compile Include="Assets\Scripts\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\Pattern\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Pattern\Pool.cs" />
      <Compile Include="Assets\Scripts\PickUpController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\RunnerEnemy.cs" />
+     <Compile Include="Assets\Scripts\TUTPickupController.cs" />
+     <Compile Include="Assets\Scripts\TutEnemy.cs" />
      <Compile Include="Assets\Scripts\TutManager.cs" />
      <Compile Include="Assets\Scripts\WalkerEnemy.cs" />
      <Compile Include="Assets\Scripts\WinLoseMenuController.cs" />

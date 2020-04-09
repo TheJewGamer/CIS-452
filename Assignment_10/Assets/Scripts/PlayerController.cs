@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     public GameObject gameOverMenu;
     public GameObject winMenu;
-    private int health;
+    private int health = 5;
     private Vector2 direction;
     private float speed = 3f;
     public GameObject muzzelFlash;
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
             if(hit.collider !=null)
             {
                 //enemy hit
-                if(hit.collider.CompareTag("Enemy"))
+                if(hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("TUTEnemy"))
                 {
                     //notify
                     hit.transform.SendMessageUpwards("Attacked");
@@ -140,6 +140,11 @@ public class PlayerController : MonoBehaviour
             Time.timeScale = 0;
 
             winMenu.SetActive(true);
+        }
+        else
+        {
+            //done
+            return;
         }
     }
 }

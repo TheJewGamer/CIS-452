@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * TUTManager.cs
+    * Assignment #10
+    * controls tutorial level
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -103,11 +110,13 @@ public class TutManager : MonoBehaviour
             //active
             prompt4.SetActive(true);
 
-            //activate enemy
-            tutEnemy.SetActive(true);
-
             //check
-            if(tutEnemy == null)
+            if(tutEnemy != null)
+            {
+                //activate enemy
+                tutEnemy.SetActive(true);
+            }
+            else
             {
                 //done
                 prompt4Done = true;
@@ -131,11 +140,15 @@ public class TutManager : MonoBehaviour
             //active
             prompt6.SetActive(true);
 
-             //turn on arrow
-            arrow.SetActive(true);
+            if(pickup !=null)
+            {
+                //turn on pickup
+                pickup.SetActive(true);
 
-            //check
-            if(pickup == null)
+                //turn on arrow
+                arrow.SetActive(true);
+            }
+            else
             {
                 //done
                 prompt6Done = true;
@@ -143,7 +156,7 @@ public class TutManager : MonoBehaviour
                 //turn off
                 prompt6.SetActive(false);
                 arrow.SetActive(false);
-            }
+            }   
         }
         //prompt 7
         else if(prompt6Done)
@@ -151,7 +164,7 @@ public class TutManager : MonoBehaviour
             //active
             prompt7.SetActive(true);
 
-            StartCoroutine(prompt5Wait());
+            StartCoroutine(prompt7Wait());
         }
     }
 

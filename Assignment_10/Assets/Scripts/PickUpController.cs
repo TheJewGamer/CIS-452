@@ -2,7 +2,7 @@
     * Jacob Cohen
     * PickupController.cs
     * Assignment #10
-    * controls the player
+    * controls the pickup
 */
 
 using UnityEngine;
