@@ -34,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
         string type = enemyType[Random.Range(0,2)];
 
         //wait
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
 
         //spawn
         objectPooler.Spawn(type, spawner.position);

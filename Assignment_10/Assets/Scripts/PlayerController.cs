@@ -29,13 +29,14 @@ public class PlayerController : MonoBehaviour
     {
         //get componets
         rb2d = this.GetComponent<Rigidbody2D>();
+        muzzelFlash.SetActive(false);
 
         //set up
         pickupCount = 0;
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         //movement
         movement.x = Input.GetAxis("Horizontal");
@@ -73,7 +74,6 @@ public class PlayerController : MonoBehaviour
     //enemy overlapped player
     private void OnTriggerEnter2D(Collider2D other) 
     {
-
         if(other.tag == "Enemy")
         {
             //disable enemy that hit player
