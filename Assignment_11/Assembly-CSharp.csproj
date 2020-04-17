@@ -43,6 +43,7 @@
      <Compile Include="Assets\Scripts\Pattern\RedPickup.cs" />
      <Compile Include="Assets\Scripts\Pattern\YellowPickUp.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\SimmerFix.cs" />
      <Compile Include="Assets\Scripts\TutManager.cs" />
      <Compile Include="Assets\Scripts\TutYellow.cs" />
     <Reference Include="UnityEngine">
