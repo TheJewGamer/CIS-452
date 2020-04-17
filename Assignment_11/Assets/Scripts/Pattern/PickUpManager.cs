@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * PickUpManager.cs
+    * Assignment #11
+    * controls the pickups
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,16 +19,20 @@ public class PickUpManager : MonoBehaviour
     public GameObject winMenu;
     public GameObject loseMenu;
     public Text pointsText;
-    public Text livesText;
     public RedPickup[] redPickup;
     public GreenPickup[] greenPickup;
+    public YellowPickUp[] yellowPickUp;
 
     private void Start() 
     {
         //update hud
         points = 0;
-        livesLeft = 3;
+        livesLeft = 1;
         UpdateHud();  
+
+        //hide
+        winMenu.SetActive(false);
+        loseMenu.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -32,13 +43,21 @@ public class PickUpManager : MonoBehaviour
             other.GetComponent<RedPickup>().PickedUp(this);
             UpdateHud();
             PointCheck();
-        }   
+        }
+        //green pickup   
         else if(other.gameObject.GetComponent<GreenPickup>() != null)
         {
             other.GetComponent<GreenPickup>().PickedUp(this);
             UpdateHud();
             PointCheck();
-        } 
+        }
+        //yellow pickup
+        else if(other.gameObject.GetComponent<YellowPickUp>() != null)
+        {
+            other.GetComponent<YellowPickUp>().PickedUp(this);
+            UpdateHud();
+            PointCheck();
+        }
     }
 
     private void LateUpdate() 
@@ -56,6 +75,15 @@ public class PickUpManager : MonoBehaviour
         {
             //check
             if(item != null)
+            {
+                item.Action();
+            }
+        }
+
+        foreach(YellowPickUp item in yellowPickUp)
+        {
+            //check
+            if(item !=null)
             {
                 item.Action();
             }
@@ -81,6 +109,5 @@ public class PickUpManager : MonoBehaviour
     private void UpdateHud()
     {
         pointsText.text = points.ToString();
-        livesText.text = livesLeft.ToString();
     }
 }

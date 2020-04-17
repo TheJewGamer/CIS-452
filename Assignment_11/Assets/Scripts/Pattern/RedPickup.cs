@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    * Jacob Cohen
+    * RedPickup.cs
+    * Assignment #11
+    * controls the red pickup
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

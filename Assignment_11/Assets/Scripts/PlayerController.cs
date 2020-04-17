@@ -12,92 +12,74 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //variables
-    private Vector2  movement;
+    public bool stunned;
     private Rigidbody2D rb2d;
-    private float speed = 3f;
-    private bool up;
-    private bool down;
-    private bool left;
-    private bool right;
+    private float maxVelocity = 1f;
+    private float rotationSpeed = 1f;
+    public GameObject warningText;
+
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        //unpause
+        Time.timeScale = 1;
+
         //get componets
         rb2d = this.GetComponent<Rigidbody2D>();
+
+        //set up
+        stunned = false;
+        warningText.SetActive(false);
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    private void LateUpdate()
     {
-        //movement
-        movement.x = Input.GetAxis("Horizontal");
-        movement.y = Input.GetAxis("Vertical");
-
-        //actually moving player here
-        rb2d.MovePosition(rb2d.position + movement * speed * Time.fixedDeltaTime);
-
-        //animation
-        //flip sprite based on direction
-        if(movement.x < 0)
+        //make sure not stuned
+        if(!stunned)
         {
-            //feedback
-            transform.localRotation = Quaternion.Euler(0, 0, 90);
+           float yAxis = Input.GetAxis("Vertical");
+           float xAxis = Input.GetAxis("Horizontal");
 
-            up = false;
-            down = false;
-            left = true;
-            right = false;
+           ThrustForward(yAxis);
+           Rotate(transform, xAxis * -rotationSpeed);
+           ClampVelocity();
         }
-        else if(movement.x > 0)
-        {
-            //feedback
-            transform.localRotation = Quaternion.Euler(0, 0, -90);
+    }
 
-            up = false;
-            down = false;
-            left = false;
-            right = true;
-        }
-        else if(movement.y > 0)
-        {
-            //feedback
-            transform.localRotation = Quaternion.Euler(0, 0, 0);
+    public IEnumerator Stunned()
+    {
+        //true
+        stunned = true;
+        warningText.SetActive(true);
+        
 
-            up = true;
-            down = false;
-            left = false;
-            right = false;
-        }
-        else if(movement.y < 0)
-        {
-            //feedback;
-            transform.localRotation = Quaternion.Euler(0, 0, 180);
+        yield return new WaitForSecondsRealtime(1);
 
-            up = false;
-            down = true;
-            left = false;
-            right = false;
-        }
-        else
-        {
-            if(left)
-            {
-                transform.localRotation = Quaternion.Euler(0, 0, 90);
-            }
-            else if(right)
-            {
-                transform.localRotation = Quaternion.Euler(0, 0, -90);
-            }
-            else if(up)
-            {
-                transform.localRotation = Quaternion.Euler(0, 0, 0);
-            }
-            else if(down)
-            {
-                transform.localRotation = Quaternion.Euler(0, 0, 180);
-            }
-        }
+        //false
+        stunned = false;
+        warningText.SetActive(false);
+    }
+
+    private void ClampVelocity()
+    {
+        float x = Mathf.Clamp(rb2d.velocity.x, -maxVelocity, maxVelocity);
+        float y = Mathf.Clamp(rb2d.velocity.y, -maxVelocity, maxVelocity);
+
+        rb2d.velocity = new Vector2 (x,y);
+    }
+
+    private void ThrustForward(float input)
+    {
+        Vector2 force = transform.up * input;
+
+        rb2d.AddForce(force);
+    }
+
+    private void Rotate(Transform tInput, float input)
+    {
+        tInput.Rotate(0,0,input);
     }
 }
 

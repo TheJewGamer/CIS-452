@@ -41,7 +41,10 @@
      <Compile Include="Assets\Scripts\Pattern\GreenPickup.cs" />
      <Compile Include="Assets\Scripts\Pattern\PickUpManager.cs" />
      <Compile Include="Assets\Scripts\Pattern\RedPickup.cs" />
+     <Compile Include="Assets\Scripts\Pattern\YellowPickUp.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\TutManager.cs" />
+     <Compile Include="Assets\Scripts\TutYellow.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.4f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
